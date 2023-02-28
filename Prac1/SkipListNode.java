@@ -6,19 +6,22 @@ public class SkipListNode<T extends Comparable<T>> {
 
     public SkipListNode(T key, int levels) {
         this.key = key;
-        Object [] temp = new Object[levels];
-        for (int i = 0; i < levels; i++) {
-            temp[i] = null;
-        }
-        next = (SkipListNode<T>[])temp;
+        next = new SkipListNode[levels];
+
     }
 
     @Override
     public String toString() {
-        return "";
+        String ret = "";
+        ret = "[" + key + "]";
+        return ret;
     }
 
     public String emptyString() {
-        return "";
+        String ret = "";
+        for (int i = 0; i < this.toString().length(); i++) {
+            ret = ret + "-";
+        }
+        return ret; 
     }
 }
