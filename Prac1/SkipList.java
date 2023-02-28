@@ -10,6 +10,12 @@ public class SkipList<T extends Comparable<T>> {
     private Random randomGenerator = new Random(123456);
 
     public SkipList(int maxLevel) {
+        this.maxLevel = maxLevel;
+        root = new SkipListNode[maxLevel];
+        int n = (int) Math.pow(2, maxLevel) - 1;
+        for (int i = 0; i < maxLevel; i++) {
+            
+        }
     }
 
     public int chooseLevel() {
