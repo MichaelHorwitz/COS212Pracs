@@ -12,10 +12,16 @@ public class SkipList<T extends Comparable<T>> {
     public SkipList(int maxLevel) {
         this.maxLevel = maxLevel;
         root = new SkipListNode[maxLevel];
-        int n = (int) Math.pow(2, maxLevel) - 1;
         for (int i = 0; i < maxLevel; i++) {
-            
+            root[i] = null;
         }
+        int n = (int) Math.pow(2, maxLevel) - 1;
+        powers = new int[maxLevel];
+        powers[0] = 1;
+        for (int i = 1; i < maxLevel; i++) {
+            powers[i] = powers[i-1] + (int)(n/(Math.pow(2, i)) + 1);
+        }
+        
     }
 
     public int chooseLevel() {
