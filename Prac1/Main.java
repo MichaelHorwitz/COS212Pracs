@@ -12,12 +12,18 @@ public class Main {
         System.out.print("Searching for 2\t");
         myList.printSearchPath(2);*/
 
-        testSLNConst();
+        //testSLNConst();
+        testSLConst();
     }
 
     static void testSLNConst(){
         SkipListNode<Integer> sln = new SkipListNode<Integer>(2, 1);
         System.out.println(sln.emptyString());
 
+    }
+
+    static void testSLConst(){
+        SkipList<Integer> sl = new SkipList<>(5);
+        sl.chooseLevel();
     }
 }
