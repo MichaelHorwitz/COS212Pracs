@@ -25,6 +25,14 @@ public class SkipList<T extends Comparable<T>> {
     }
 
     public int chooseLevel() {
+        int maxNum = (int)Math.pow(2, maxLevel);
+        int num = randomGenerator.nextInt(maxNum - 1) + 1;
+        int level = -1;
+        for (int i = 0; i < maxLevel; i++) {
+            if (num >= powers[i]) {
+                level = i;
+            }
+        }
         return 0;
     }
 
