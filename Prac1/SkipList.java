@@ -31,16 +31,61 @@ public class SkipList<T extends Comparable<T>> {
         for (int i = 0; i < maxLevel; i++) {
             if (num >= powers[i]) {
                 level = i;
+                //System.out.println("Level: " + level);
             }
         }
-        return 0;
+        return level;
     }
 
     public void insert(T key) {
+        int nodeLevel = this.chooseLevel();
+        int currLevel = maxLevel - 1;
+        SkipListNode<T> currNode = root[0];
+        SkipListNode<T> pred = null;
+        //System.out.println("Node Level: " + nodeLevel);
+        SkipListNode<T> newNode = new SkipListNode<T>(key, nodeLevel + 1);
+        if (this.isEmpty()) {
+            for (int i = nodeLevel; i >= 0; i--) {
+                root[i] = newNode;
+                //System.out.println("ROOT AT " + i + ": " + root[i].toString());
+            }
+            return;
+        }
+        
+        while (pred == null) {
+            if (currNode.next[currLevel] == null) {
+                if(currLevel == 0){
+                    pred = currNode;
+                } else {
+                    currLevel--;
+                }
+            }else{
+                while (currNode.next[currLevel] != null && currNode.next[currLevel].key.compareTo(key) <= 0) {
+                    currNode = currNode.next[currLevel];
+                }
+                if (currLevel == 0) {
+                    pred = currNode;
+                } else {
+                    currLevel--;
+                }
+
+            }
+        }
+        for (int i = nodeLevel; i >= 0; i--) {
+            newNode.next[i] = pred.next[i];
+            pred.next[i] = newNode;
+        }
+
     }
 
     public boolean isEmpty() {
-        return false;
+        boolean empty = true;
+        for (int i = 0; i < maxLevel; i++) {
+            if (root[i] != null) {
+                empty = false;
+            }
+        }
+        return empty;
     }
 
     public SkipListNode<T> search(T key) {
@@ -49,7 +94,42 @@ public class SkipList<T extends Comparable<T>> {
 
     @Override
     public String toString() {
-        return "";
+        String[] levelsStr = new String[maxLevel];
+        for (int i = 0; i < maxLevel; i++) {
+            levelsStr[i] = "[Lvl " + i + "]";
+        }
+        SkipListNode<T> currNode = root[0];
+        if (currNode == null) {
+            
+            String ret = "";
+            for (int i = maxLevel - 1; i >= 0; i--) {
+                ret += levelsStr[i] + "\n";
+            }
+            
+            return ret;
+        }
+        
+        while (currNode != null) {
+            int currLevel = currNode.next.length;
+            for (int i = 0; i < maxLevel; i++) {
+                if (i <= currLevel - 1) {
+                    levelsStr[i] += "->";
+                    levelsStr[i] += currNode.toString();
+                    //System.out.println("Here once");
+
+                } else {
+                    levelsStr[i] += "--";
+                    levelsStr[i] += currNode.emptyString();
+                }
+            }
+            System.out.println("CurrNode: " + currNode.next.length);
+            currNode = currNode.next[0];
+        }
+        String ret = "";
+        for (int i = maxLevel - 1; i >= 0; i--) {
+            ret += levelsStr[i] + "\n";
+        }
+        return ret;
     }
 
     public boolean delete(T key) {
