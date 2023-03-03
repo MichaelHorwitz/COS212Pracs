@@ -15,7 +15,9 @@ public class Main {
         //testSLConst();
         //testSLEmpty();
         //testSLIns();
-        testSLSer();
+        //testSLSer();
+        //testSLDel();
+        testSLPrint();
 
     }
 
@@ -65,13 +67,67 @@ public class Main {
         sl.insert(3);
         sl.insert(0);
         sl.insert(0); 
-        sl.insert(4); 
-        sl.insert(4); 
-        sl.insert(4); 
-        sl.insert(4); 
-        sl.insert(4); 
+
         System.out.println(sl.toString());
         System.out.println(sl.search(4).toString());
         
+    }
+    static void testSLDel(){
+        SkipList<Integer> sl = new SkipList<>(3);
+        sl.insert(1);
+        System.out.println(sl.toString());
+        sl.insert(2);
+        System.out.println(sl.toString());
+        sl.insert(4);
+        System.out.println(sl.toString());
+        sl.insert(3);
+        System.out.println(sl.toString());
+        sl.insert(0);
+        System.out.println(sl.toString());
+        sl.insert(0);
+        System.out.println(sl.toString());
+        sl.delete(1);
+        System.out.println(sl.toString());
+        sl.delete(0);
+        System.out.println(sl.toString());
+        sl.delete(4);
+        System.out.println(sl.toString());
+    }
+
+    static void testSLPrint(){
+        SkipList<Integer> sl = new SkipList<>(3);
+        sl.insert(1);
+        System.out.println(sl.toString());
+        sl.insert(2);
+        System.out.println(sl.toString());
+        sl.insert(4);
+        System.out.println(sl.toString());
+        sl.insert(3);
+        System.out.println(sl.toString());
+        sl.insert(5);
+        System.out.println(sl.toString());
+        sl.insert(6);
+        System.out.println(sl.toString());
+        sl.insert(8);
+        System.out.println(sl.toString());
+        sl.insert(9);
+        System.out.println(sl.toString());
+        sl.insert(10);
+        System.out.println(sl.toString());
+        sl.insert(10);
+        System.out.println(sl.toString());
+        sl.insert(10);
+        System.out.println(sl.toString());
+        sl.insert(10);
+        System.out.println(sl.toString());
+        sl.insert(10);
+        System.out.println(sl.toString());
+        sl.insert(10);
+        System.out.println(sl.toString());
+        sl.insert(10);
+        System.out.println(sl.toString());
+        sl.insert(11);
+        System.out.println(sl.toString());
+        sl.printSearchPath(11);
     }
 }
