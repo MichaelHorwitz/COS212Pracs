@@ -14,8 +14,8 @@ public class Main {
         //testSLNConst();
         //testSLConst();
         //testSLEmpty();
-        testSLStr();
-        testSLIns();
+        //testSLIns();
+        testSLSer();
 
     }
 
@@ -41,15 +41,37 @@ public class Main {
         
     }
     
-    static void testSLStr(){
+    static void testSLIns(){
         SkipList<Integer> sl = new SkipList<>(3);
         sl.insert(1);
         System.out.println(sl.toString());
         sl.insert(2);
         System.out.println(sl.toString());
+        sl.insert(4);
+        System.out.println(sl.toString());
+        sl.insert(3);
+        System.out.println(sl.toString());
+        sl.insert(0);
+        System.out.println(sl.toString());
+        sl.insert(0);
+        System.out.println(sl.toString());
     }
 
-    static void testSLIns(){
-
+    static void testSLSer(){
+        SkipList<Integer> sl = new SkipList<>(3);
+        sl.insert(1);
+        sl.insert(2);
+        sl.insert(4);
+        sl.insert(3);
+        sl.insert(0);
+        sl.insert(0); 
+        sl.insert(4); 
+        sl.insert(4); 
+        sl.insert(4); 
+        sl.insert(4); 
+        sl.insert(4); 
+        System.out.println(sl.toString());
+        System.out.println(sl.search(4).toString());
+        
     }
 }
