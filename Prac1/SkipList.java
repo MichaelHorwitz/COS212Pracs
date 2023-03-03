@@ -183,15 +183,101 @@ public class SkipList<T extends Comparable<T>> {
         }
         String ret = "";
         for (int i = maxLevel - 1; i >= 0; i--) {
-            ret += levelsStr[i] + "\n";
+            ret += levelsStr[i].substring(0, levelsStr[i].lastIndexOf("]") + 1) + "\n";
         }
         return ret;
     }
 
     public boolean delete(T key) {
+        SkipListNode<T> currNode = new SkipListNode<T>(null, maxLevel);
+        SkipListNode<T> delNode = null;
+        currNode.next = root;
+        int currLevel = maxLevel-1;
+        boolean found = false;
+
+        while (currLevel >= 0 && !found) {
+            while (currNode.next[currLevel] != null && currNode.next[currLevel].key.compareTo(key) < 0) {
+                currNode = currNode.next[currLevel];
+            }
+            if (currLevel >= 0) {
+                if (currNode.next[currLevel] == null) {
+                    if (currNode.key.compareTo(key) == 0) {
+                        delNode = currNode;
+                        
+                        found = true;
+                    } else {
+                        currLevel--;
+                    }
+                    currLevel--;
+                } else{
+                    if (currNode.next[currLevel].key.compareTo(key) == 0) {
+                        delNode = currNode;
+                        
+                        found = true;
+                    } else {
+                        currLevel--;
+                    }
+                }
+            }
+
+        }
+        if (found) {
+            for (int i = 0; i < delNode.next.length; i++) {
+                if (delNode.next[i] != null) {
+                    delNode.next[i] = delNode.next[i].next[i];
+                } else {
+                    //delNode.next
+                }
+                
+            }
+            return true;
+        }
         return false;
     }
 
     public void printSearchPath(T key) {
+        SkipListNode<T> currNode = new SkipListNode<T>(null, maxLevel);
+        SkipListNode<T> ret = null;
+        currNode.next = root;
+        int currLevel = maxLevel-1;
+        boolean found = false;
+
+        while (currLevel >= 0 && !found) {
+            if (currNode.key != null) {
+                
+                System.out.println(currNode);
+            }
+            while (currNode.next[currLevel] != null && currNode.next[currLevel].key.compareTo(key) < 0) {
+                
+                currNode = currNode.next[currLevel];
+                System.out.println(currNode);
+            }
+            if (currLevel < 0) {
+
+            } else {
+                if (currNode.next[currLevel] == null) {
+                    //System.out.println("Minus");
+                    currLevel--;
+                } else{
+
+                    if (currNode.next[currLevel].key.compareTo(key) == 0) {
+                        //System.out.println(currNode.toString());
+                        ret = currNode.next[currLevel];
+                        System.out.println(ret.toString());
+                        found = true;
+                        //System.out.println("Found");
+                    } else {
+                        //System.out.println("Minus");
+                        currLevel--;
+                    }
+                }
+            }
+
+        }
+        //System.out.println("OUT");
+        if (found) {
+            return;
+        }
+        return;
     }
 }
