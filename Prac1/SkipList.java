@@ -39,19 +39,34 @@ public class SkipList<T extends Comparable<T>> {
 
     public void insert(T key) {
         int nodeLevel = this.chooseLevel();
-        int currLevel = maxLevel - 1;
-        SkipListNode<T> currNode = root[0];
-        SkipListNode<T> pred = null;
-        //System.out.println("Node Level: " + nodeLevel);
+        //System.out.println("NodeLevel: " + nodeLevel);
         SkipListNode<T> newNode = new SkipListNode<T>(key, nodeLevel + 1);
-        if (this.isEmpty()) {
-            for (int i = nodeLevel; i >= 0; i--) {
-                root[i] = newNode;
-                //System.out.println("ROOT AT " + i + ": " + root[i].toString());
-            }
-            return;
-        }
+        SkipListNode<T> currNode = new SkipListNode<T>(null, maxLevel + 1);
+        currNode.next = root;
+        SkipListNode<T>[] pred = new SkipListNode[nodeLevel + 1];
         
+        // CODE FOR NO PRED
+        for (int currLevel = nodeLevel; currLevel >= 0; currLevel--) {
+            while (currNode.next[currLevel] != null && pred[currLevel] == null) {
+                if (currNode.next[currLevel].key.compareTo(key) <= 0) {
+                    currNode = currNode.next[currLevel];
+                } else {
+                    pred[currLevel] = currNode;
+                }
+            }
+            if (currNode.next[currLevel] == null) {
+                pred[currLevel] = currNode;
+            }
+            
+        }
+        for (int i = 0; i <= nodeLevel; i++) {
+            //System.out.println("HERE");
+            if (pred[i] != null) {
+                newNode.next[i] = pred[i].next[i];
+                pred[i].next[i] = newNode;
+            }
+        }
+        /*
         while (pred == null) {
             if (currNode.next[currLevel] == null) {
                 if(currLevel == 0){
@@ -72,10 +87,13 @@ public class SkipList<T extends Comparable<T>> {
             }
         }
         for (int i = nodeLevel; i >= 0; i--) {
+            System.out.println(newNode.next[i]);
+            System.out.println(pred.next[i]);
             newNode.next[i] = pred.next[i];
+
             pred.next[i] = newNode;
         }
-
+        */
     }
 
     public boolean isEmpty() {
@@ -89,6 +107,45 @@ public class SkipList<T extends Comparable<T>> {
     }
 
     public SkipListNode<T> search(T key) {
+        SkipListNode<T> currNode = new SkipListNode<T>(null, maxLevel);
+        SkipListNode<T> ret = null;
+        currNode.next = root;
+        int currLevel = maxLevel-1;
+        boolean found = false;
+
+        while (currLevel >= 0 && !found) {
+            // System.out.println("currLevel: " + currLevel);
+            while (currNode.next[currLevel] != null && currNode.next[currLevel].key.compareTo(key) < 0) {
+                //System.out.println("While");
+                currNode = currNode.next[currLevel];
+                //System.out.println("currNode: " + currNode.toString());
+                //System.out.println("currLevel: " + currLevel);
+            }
+            if (currLevel < 0) {
+
+            } else {
+                if (currNode.next[currLevel] == null) {
+                    //System.out.println("Minus");
+                    currLevel--;
+                } else{
+
+                    if (currNode.next[currLevel].key.compareTo(key) == 0) {
+                        //System.out.println("IF2");
+                        ret = currNode.next[currLevel];
+                        found = true;
+                        //System.out.println("Found");
+                    } else {
+                        //System.out.println("Minus");
+                        currLevel--;
+                    }
+                }
+            }
+
+        }
+        //System.out.println("OUT");
+        if (found) {
+            return ret;
+        }
         return null;
     }
 
@@ -100,12 +157,11 @@ public class SkipList<T extends Comparable<T>> {
         }
         SkipListNode<T> currNode = root[0];
         if (currNode == null) {
-            
             String ret = "";
             for (int i = maxLevel - 1; i >= 0; i--) {
                 ret += levelsStr[i] + "\n";
             }
-            
+            //System.out.println("Root[0]: " + root[0]);
             return ret;
         }
         
@@ -122,7 +178,7 @@ public class SkipList<T extends Comparable<T>> {
                     levelsStr[i] += currNode.emptyString();
                 }
             }
-            System.out.println("CurrNode: " + currNode.next.length);
+            //System.out.println("CurrNode: " + currNode.next.length);
             currNode = currNode.next[0];
         }
         String ret = "";
