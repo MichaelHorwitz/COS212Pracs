@@ -7,6 +7,9 @@ public class SkipListNode<T extends Comparable<T>> {
     public SkipListNode(T key, int levels) {
         this.key = key;
         next = new SkipListNode[levels];
+        for (int i = 0; i < levels; i++) {
+            next[i] = null;
+        }
 
     }
 
