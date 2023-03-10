@@ -16,7 +16,7 @@ public class TransposeList<T extends Comparable<T>> extends SelfOrderingList<T> 
         boolean found = false;
     
         while (currNode != null && !found) {
-            if (currNode.data == data) {
+            if (currNode.data.compareTo(data) == 0) {
                 found = true;
             } else {
                 prevNode = currNode;
