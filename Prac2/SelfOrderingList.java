@@ -52,12 +52,11 @@ abstract class SelfOrderingList<T extends Comparable<T>> {
     
     
 /*
-*/
- 
+
 //REMOVE REMOVE REMOVE
 public String toString(){
-        Node<T> currNode = head;
-        if (head == null) {
+    Node<T> currNode = head;
+    if (head == null) {
             return "null";
         }
         String ret = "";
@@ -88,5 +87,6 @@ public String toString(){
         
         return ret;
     }
+    */
     
 }
