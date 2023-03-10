@@ -6,10 +6,22 @@ public class App {
         //testNOAccess();
         //testTLAccess();
         //testITstr();
-        testIT();
+        //testIT();
+        testRecStr();
         
     }
     
+    static void testRecStr(){
+        CountList<Integer> cl = new CountList<Integer>();
+        cl.insert(0);
+        cl.insert(1);
+        cl.insert(2);
+        cl.insert(3);
+        cl.insert(4);
+        IterativeTraverse<Integer> rt = new IterativeTraverse<Integer>(cl);
+        System.out.println(rt);
+    }
+
     static void testIT(){
         CountList<Integer> cl = new CountList<Integer>();
         cl.insert(0);
