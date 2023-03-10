@@ -1,4 +1,3 @@
-/*
 public class RecursiveTraverse<T extends Comparable<T>> extends Traverser<T>{
     
     public RecursiveTraverse(){
@@ -11,37 +10,36 @@ public class RecursiveTraverse<T extends Comparable<T>> extends Traverser<T>{
     
     @Override
     public SelfOrderingList<T> reverseList() {
-        //TODO: Implement the function
+        return null;
     }
     
     @Override
     public boolean contains(T data) {
-        //TODO: Implement the function
+        return false;
     }
     
     @Override
     public String toString() {
-        //TODO: Implement the function
+        return null;
     }
     
     @Override
     public Node<T> get(int pos) {
-        //TODO: Implement the function
+        return null;
     }
     
     @Override
     public Node<T> find(T data) {
-        //TODO: Implement the function
+        return null;
     }
     
     @Override
     public int size() {
-        //TODO: Implement the function
+        return 0;
     }
     
     @Override
     public SelfOrderingList<T> clone(SelfOrderingList<T> otherList) {
-        //TODO: Implement the function
+        return null;
     }
 }
-*/
