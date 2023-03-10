@@ -7,6 +7,7 @@ public class MoveToFrontList<T extends Comparable<T>> extends SelfOrderingList<T
     
     @Override
     public void access(T data) {
+        
         if (head == null) {
             return;
         }
