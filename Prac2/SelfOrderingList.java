@@ -21,7 +21,7 @@ abstract class SelfOrderingList<T extends Comparable<T>> {
         }
         Node<T> currNode = head;
 
-        while (currNode != null && currNode.data != data) {
+        while (currNode != null && currNode.data.compareTo(data) != 0) {
             currNode = currNode.next;
         }
         if (currNode == null) {
