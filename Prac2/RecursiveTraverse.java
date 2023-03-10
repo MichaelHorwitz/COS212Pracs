@@ -28,7 +28,7 @@ public class RecursiveTraverse<T extends Comparable<T>> extends Traverser<T>{
         Node<T> currNode = list.head;
         SelfOrderingList<T> newList = list.getBlankList();
             
-        return null;
+        return recursiveReverseList(currNode, newList);
     }
     private SelfOrderingList<T> recursiveReverseList(Node<T> currNode, SelfOrderingList<T> newList){
         if (currNode == null) {
@@ -120,9 +120,18 @@ public class RecursiveTraverse<T extends Comparable<T>> extends Traverser<T>{
 
     @Override
     public SelfOrderingList<T> clone(SelfOrderingList<T> otherList) {
-        return null;
+        if (otherList == null) {
+            return null;
+        }
+        Node<T> currNode = list.head;
+        SelfOrderingList<T> newList = list.getBlankList();
+        return recursiveClone(newList, otherList, currNode);
     }
-    private SelfOrderingList<T> recursiveClone(SelfOrderingList<T> newList, SelfOrderingList<T> otherList){
-
+    private SelfOrderingList<T> recursiveClone(SelfOrderingList<T> newList, SelfOrderingList<T> otherList, Node<T> currNode){
+        if (currNode == null) {
+            return newList;
+        }
+        newList.insert(currNode.data);
+        return recursiveClone(newList, otherList, currNode.next);
     }
 }

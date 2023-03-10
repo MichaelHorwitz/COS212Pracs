@@ -7,10 +7,40 @@ public class App {
         //testTLAccess();
         //testITstr();
         //testIT();
-        testRecStr();
+        //testRecStr();
+        testRec();
         
     }
     
+    static void testRec(){
+        CountList<Integer> cl = new CountList<Integer>();
+        cl.insert(0);
+        cl.insert(1);
+        cl.insert(2);
+        cl.insert(3);
+        cl.insert(4);
+        RecursiveTraverse<Integer> rec = new RecursiveTraverse<Integer>(cl);
+        System.out.println(rec);
+        System.out.println("Contains 0: " + rec.contains(0));
+        System.out.println("Contains 2: " + rec.contains(2));
+        System.out.println("Contains 4: " + rec.contains(4));
+        System.out.println("Contains 8: " + rec.contains(8));
+
+        System.out.println("Size: " + rec.size());
+        System.out.println("Reversed:\n" + rec.reverseList());
+
+        System.out.println("Find 0: " + rec.find(0));
+        System.out.println("Find 2: " + rec.find(2));
+        System.out.println("Find 4: " + rec.find(4));
+        System.out.println("Find 8: " + rec.find(8));
+
+        System.out.println("Get 0: " + rec.get(0));
+        System.out.println("Get 2: " + rec.get(2));
+        System.out.println("Get 4: " + rec.get(4));
+        System.out.println("Get 8: " + rec.get(8));
+
+        System.out.println(rec.clone(cl));
+    }
     static void testRecStr(){
         CountList<Integer> cl = new CountList<Integer>();
         cl.insert(0);
@@ -18,7 +48,7 @@ public class App {
         cl.insert(2);
         cl.insert(3);
         cl.insert(4);
-        IterativeTraverse<Integer> rt = new IterativeTraverse<Integer>(cl);
+        RecursiveTraverse<Integer> rt = new RecursiveTraverse<Integer>(cl);
         System.out.println(rt);
     }
 
