@@ -7,7 +7,6 @@ public class MoveToFrontList<T extends Comparable<T>> extends SelfOrderingList<T
     
     @Override
     public void access(T data) {
-        
         if (head == null) {
             return;
         }
@@ -26,8 +25,8 @@ public class MoveToFrontList<T extends Comparable<T>> extends SelfOrderingList<T
         if (currNode.prev == null && currNode.next == null) {
             return;
         } else if (currNode.prev == null){
-            currNode.next.prev = currNode.prev;
-            head = currNode;
+            currNode.next.prev = null;
+            head = currNode.next;
         } else if (currNode.next == null){
             currNode.prev.next = currNode.next;
         } else {
@@ -38,9 +37,10 @@ public class MoveToFrontList<T extends Comparable<T>> extends SelfOrderingList<T
         newNode.next = null;
         newNode.prev = null;
         currNode = head;
-
+        
         head = newNode;
         newNode.next = currNode;
         currNode.prev = newNode;
+        
     }
 }
