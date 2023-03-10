@@ -46,18 +46,27 @@ abstract class SelfOrderingList<T extends Comparable<T>> {
 
     public abstract SelfOrderingList<T> getBlankList();
 
-    //REMOVE REMOVE REMOVE
-    //PLEASE FOR THE LOVE OF GOD REMOVE
+
+//REMOVE REMOVE REMOVE
+//PLEASE FOR THE LOVE OF GOD REMOVE
     public String toString(){
         Node<T> currNode = head;
+        if (head == null) {
+            return "null";
+        }
         String ret = "";
+        if (currNode.prev == null) {
+           //ret += "Good start: ";
+        }
         while (currNode.next != null) {
             //System.out.println(currNode);
             ret += currNode + ", ";
             currNode = currNode.next;
         }
-        
         ret += currNode;
+        if (currNode.next == null) {
+            //ret += ": Good End";
+        }
         ret += "\n";
         
         while (currNode.prev != null) {
@@ -69,4 +78,5 @@ abstract class SelfOrderingList<T extends Comparable<T>> {
 
         return ret;
     }
+    
 }

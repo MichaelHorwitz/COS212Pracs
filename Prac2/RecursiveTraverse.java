@@ -1,5 +1,3 @@
-import javax.xml.crypto.Data;
-
 public class RecursiveTraverse<T extends Comparable<T>> extends Traverser<T>{
     
     public RecursiveTraverse(){
