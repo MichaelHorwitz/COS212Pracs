@@ -27,8 +27,12 @@ abstract class SelfOrderingList<T extends Comparable<T>> {
         if (currNode == null) {
             return;
         }
+        if (currNode.prev == null && currNode.next == null) {
+            head = null;
+            return;
+        }
         if (currNode.prev == null) {
-            head.next = currNode.next;
+            head = currNode.next;
             currNode.next.prev = null;
             return;
         }
@@ -41,22 +45,24 @@ abstract class SelfOrderingList<T extends Comparable<T>> {
         prev.next = next;
         next.prev = prev;
     }
-
+    
     public abstract void access(T data);
-
+    
     public abstract SelfOrderingList<T> getBlankList();
-
-
+    
+    
+/*
+*/
+ 
 //REMOVE REMOVE REMOVE
-//PLEASE FOR THE LOVE OF GOD REMOVE
-    public String toString(){
+public String toString(){
         Node<T> currNode = head;
         if (head == null) {
             return "null";
         }
         String ret = "";
         if (currNode.prev == null) {
-           //ret += "Good start: ";
+            ret += "null->";
         }
         while (currNode.next != null) {
             //System.out.println(currNode);
@@ -65,17 +71,21 @@ abstract class SelfOrderingList<T extends Comparable<T>> {
         }
         ret += currNode;
         if (currNode.next == null) {
-            //ret += ": Good End";
+            ret += "->null";
         }
         ret += "\n";
-        
+        if (currNode.next == null) {
+            ret += "null->";
+        }
         while (currNode.prev != null) {
             ret += currNode + ", ";
             currNode = currNode.prev;
         }
-
         ret += currNode;
-
+        if (currNode.prev == null) {
+            ret += "<-null";
+        }
+        
         return ret;
     }
     
