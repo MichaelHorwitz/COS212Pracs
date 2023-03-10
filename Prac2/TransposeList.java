@@ -36,7 +36,14 @@ public class TransposeList<T extends Comparable<T>> extends SelfOrderingList<T> 
             prevNode.prev = currNode;
             return;
         }
-        if (currNode.next != null) {
+        if (currNode.next == null) {
+            prevNode.prev.next = currNode;
+            currNode.prev = prevNode.prev;
+            prevNode.next = currNode.next;
+            currNode.next = prevNode;
+            prevNode.prev = currNode;
+            return;
+
         }
         prevNode.prev.next = currNode;
         currNode.next.prev = prevNode;
