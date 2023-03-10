@@ -13,7 +13,7 @@ public class MoveToFrontList<T extends Comparable<T>> extends SelfOrderingList<T
         Node<T> currNode = head;
         boolean found = false;
         while (currNode != null && !found) {
-            if (currNode.data == data) {
+            if (currNode.data.compareTo(data) == 0) {
                 found = true;
             } else {
                 currNode = currNode.next;
