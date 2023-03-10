@@ -3,9 +3,43 @@ public class App {
         //testCountListBlank();
         //testCLAccess();
         //testMTFAccess();
-        testNOAccess();
+        //testNOAccess();
+        //testTLAccess();
+        testITstr();
         
     }
+    
+    static void testITstr(){
+        CountList<Integer> cl = new CountList<Integer>();
+        IterativeTraverse it = new IterativeTraverse<>(cl);
+        System.out.println(it);
+    }
+
+    static void testTLAccess(){
+        TransposeList<Integer> tl = new TransposeList<Integer>();
+        tl.insert(0);
+        tl.insert(1);
+        tl.insert(2);
+        tl.insert(3);
+        tl.insert(4);
+        System.out.println(tl + "\n");
+        System.out.println("Access 2");
+        tl.access(2);
+        System.out.println(tl);
+        System.out.println("Access 0");
+        tl.access(0);
+        System.out.println(tl);
+        System.out.println("Access 2");
+        tl.access(2);
+        System.out.println(tl);
+        System.out.println("Access 3");
+        tl.access(3);
+        System.out.println(tl);
+        System.out.println("Access 1");
+        tl.access(1);
+        System.out.println(tl);
+    }
+
     static void testNOAccess(){
         NaturalOrderList<Integer> no = new NaturalOrderList<Integer>();
         no.insert(4);
