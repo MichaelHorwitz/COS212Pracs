@@ -1,5 +1,3 @@
-import javax.print.DocFlavor.STRING;
-
 public class App {
     public static void main(String[] args) throws Exception {
         //testCountListBlank();
@@ -8,14 +6,58 @@ public class App {
         //testNOAccess();
         //testTLAccess();
         //testITstr();
-        testIT();
+        //testIT();
         //testRecStr();
         //testRec();
-        
+        testMTFRec();
     }
     
+    static void testMTFRec(){
+        MoveToFrontList<Integer> mtf = new MoveToFrontList<Integer>();
+        mtf.insert(0);
+        mtf.insert(1);
+        mtf.insert(2);
+        mtf.insert(3);
+        mtf.insert(4);
+        
+        mtf.access(2);
+        mtf.access(4);
+        mtf.access(2);
+        mtf.access(0);
+        mtf.access(3);
+
+        RecursiveTraverse<Integer> rt = new RecursiveTraverse<Integer>(mtf);
+        System.out.println(rt);
+
+        System.out.println("Reverse List:\n"+ rt.reverseList());
+        
+        System.out.println("Contains 0: " + rt.contains(0));
+        System.out.println("Contains 2: " + rt.contains(2));
+        System.out.println("Contains 4: " + rt.contains(4));
+        System.out.println("Contains 8: " + rt.contains(8));
+        
+        System.out.println("Get 0: " + rt.get(0));
+        System.out.println("Get 2: " + rt.get(2));
+        System.out.println("Get 4: " + rt.get(4));
+        System.out.println("Get 8: " + rt.get(8));
+
+        System.out.println("Find 0: " + rt.find(0));
+        System.out.println("Find 2: " + rt.find(2));
+        System.out.println("Find 4: " + rt.find(4));
+        System.out.println("Find 8: " + rt.find(8));
+
+        System.out.println("Size: " + rt.size());
+
+        System.out.println("Clone: " + rt.clone(mtf));
+    }
+
     static void testRec(){
         TransposeList<Integer> cl = new TransposeList<Integer>();
+        cl.insert(0);
+        cl.insert(0);
+        cl.insert(0);
+        cl.insert(0);
+        cl.insert(0);
         cl.insert(0);
         RecursiveTraverse<Integer> rec = new RecursiveTraverse<Integer>(cl);
         System.out.println(rec);
@@ -94,21 +136,51 @@ public class App {
         tl.insert(3);
         tl.insert(4);
         System.out.println(tl + "\n");
-        System.out.println("Access 2");
-        tl.access(2);
+        // System.out.println("Access 2");
+        // tl.access(2);
+        // System.out.println(tl);
+        // System.out.println("Access 0");
+        // tl.access(0);
+        // System.out.println(tl);
+        // System.out.println("Access 2");
+        // tl.access(2);
+        // System.out.println(tl);
+        // System.out.println("Access 3");
+        // tl.access(3);
+        // System.out.println(tl);
+        // System.out.println("Access 1");
+        // tl.access(1);
+        // System.out.println(tl);
+        // System.out.println("Access 4");
+        // tl.access(4);
+        // System.out.println(tl);
+
+        int i;
+        i = 2;
+        System.out.println("Remove: " + i);
+        tl.remove(i);
         System.out.println(tl);
-        System.out.println("Access 0");
-        tl.access(0);
+        i = 0;
+        System.out.println("Remove: " + i);
+        tl.remove(i);
         System.out.println(tl);
-        System.out.println("Access 2");
-        tl.access(2);
+        i = 4;
+        System.out.println("Remove: " + i);
+        tl.remove(i);
         System.out.println(tl);
-        System.out.println("Access 3");
-        tl.access(3);
+        i = 5;
+        System.out.println("Remove: " + i);
+        tl.remove(i);
         System.out.println(tl);
-        System.out.println("Access 1");
-        tl.access(1);
+        i = 1;
+        System.out.println("Remove: " + i);
+        tl.remove(i);
         System.out.println(tl);
+        i = 3;
+        System.out.println("Remove: " + i);
+        tl.remove(i);
+        System.out.println(tl);
+
     }
 
     static void testNOAccess(){
@@ -145,14 +217,48 @@ public class App {
         cl.insert(3);
         cl.insert(4);
         System.out.println(cl); 
+
+        System.out.println("ACCESS: " + 0);
+        cl.access(0);
+        System.out.println(cl);
+        
+        System.out.println("ACCESS: " + 2);
         cl.access(2);    
         System.out.println(cl);
+        
+        System.out.println("ACCESS: " + 4);
         cl.access(4);    
         System.out.println(cl);
+        
+        System.out.println("ACCESS: " + 2);
         cl.access(2);    
         System.out.println(cl);
+        
+        System.out.println("ACCESS: " + 1);
         cl.access(1);    
         System.out.println(cl);
+        /*
+        */
+        
+        // System.out.println("Remove 1");
+        // cl.remove(1);
+        // System.out.println(cl);
+
+        // System.out.println("Remove 2");
+        // cl.remove(2);
+        // System.out.println(cl);
+        
+        // System.out.println("Remove 3");
+        // cl.remove(3);
+        // System.out.println(cl);
+        
+        // System.out.println("Remove 4");
+        // cl.remove(4);
+        // System.out.println(cl);
+        
+        // System.out.println("Remove 0");
+        // cl.remove(0);
+        // System.out.println(cl);
     }
     static void testMTFAccess(){
         MoveToFrontList<Integer> mtf = new MoveToFrontList<Integer>();
