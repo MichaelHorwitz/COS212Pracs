@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class App {
     public static void main(String[] args) throws Exception {
         //testCountListBlank();
@@ -19,12 +21,10 @@ public class App {
         mtf.insert(2);
         mtf.insert(3);
         mtf.insert(4);
-        
-        mtf.access(2);
+
+        mtf.access(4);
         mtf.access(4);
         mtf.access(2);
-        mtf.access(0);
-        mtf.access(3);
 
         RecursiveTraverse<Integer> rt = new RecursiveTraverse<Integer>(mtf);
         System.out.println(rt);
@@ -218,12 +218,8 @@ public class App {
         cl.insert(4);
         System.out.println(cl); 
 
-        System.out.println("ACCESS: " + 0);
-        cl.access(0);
-        System.out.println(cl);
-        
         System.out.println("ACCESS: " + 2);
-        cl.access(2);    
+        cl.access(2);
         System.out.println(cl);
         
         System.out.println("ACCESS: " + 4);
@@ -237,6 +233,11 @@ public class App {
         System.out.println("ACCESS: " + 1);
         cl.access(1);    
         System.out.println(cl);
+        
+        System.out.println("ACCESS: " + 3);
+        cl.access(3);    
+        System.out.println(cl);
+        
         /*
         */
         
