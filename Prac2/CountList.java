@@ -26,8 +26,8 @@ public class CountList<T extends Comparable<T>> extends SelfOrderingList<T>{
         if (currNode.prev == null && currNode.next == null) {
             return;
         } else if (currNode.prev == null){
-            currNode.next.prev = currNode.prev;
-            head = currNode;
+            currNode.next.prev = null;
+            head = currNode.next;
         } else if (currNode.next == null){
             currNode.prev.next = currNode.next;
         } else {
