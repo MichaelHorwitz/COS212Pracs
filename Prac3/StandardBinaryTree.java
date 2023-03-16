@@ -59,9 +59,40 @@ public class StandardBinaryTree<T extends Comparable<T>> extends BinaryTree<T> {
 
     @Override
     public Leaf<T> findParent(T data) {
-        return null;
+        if (root == null) {
+            return null;
+        }
+        if (root.data.compareTo(data) == 0) {
+            System.out.println(root);
+            return null;
+        }
+        return recursiveFindParent(root, data);
     }
     
+    private Leaf<T> recursiveFindParent(Leaf<T> parent, T data){
+        if (parent == null) {
+            return null;
+        }
+        //System.out.println("IN LOOP");
+        System.out.println(parent);
+        if (parent.left != null && parent.left.data.compareTo(data) == 0) {
+            return parent;
+        }
+        if (parent.right != null && parent.right.data.compareTo(data) == 0) {
+            return parent;
+        }
+
+        if (parent.right != null && parent.right.data.compareTo(data) < 0) {
+            //System.out.println("MOVE TO RIGHT");
+            return recursiveFindParent(parent.right, data);
+        } else if (parent.left != null && parent.left.data.compareTo(data) > 0) {
+            //System.out.println("MOVE TO LEFT");
+            return recursiveFindParent(parent.left, data);
+        }
+        return null;
+        
+    }
+
     @Override
     public void insert(T data) {
         super.insert(data, true);
@@ -77,17 +108,14 @@ public class StandardBinaryTree<T extends Comparable<T>> extends BinaryTree<T> {
         if (leaf == null) {
             return null;
         }
+        System.out.println(leaf);
         if (leaf.data.compareTo(data) == 0) {
             return leaf;
         }
-        Leaf<T> left = recursiveFind(leaf.left, data);
-        Leaf<T> right = recursiveFind(leaf.right, data);
-
-        if (left != null) {
-            return left;
-        }
-        if (right != null) {
-            return right;
+        if (leaf.left != null && leaf.left.data.compareTo(data) >= 0) {
+            return recursiveFind(leaf.left, data);
+        } else if (leaf.right != null && leaf.right.data.compareTo(data) <= 0) {
+            return recursiveFind(leaf.right, data);
         }
         return null;
 
@@ -95,9 +123,29 @@ public class StandardBinaryTree<T extends Comparable<T>> extends BinaryTree<T> {
     
     @Override
     public boolean perfectlyBalanced() {
-        return false;
+        if (root == null) {
+            return false;
+        }
+        return recursivePerfectlyBalanced(root);
     }
     
+    private boolean recursivePerfectlyBalanced(Leaf<T> leaf){
+        if (leaf == null) {
+            //System.out.println("IF0");
+            return false;
+        }
+        if (leaf.left != null && leaf.right != null) {
+            //System.out.println("IF1");
+            return recursivePerfectlyBalanced(leaf.left) && recursivePerfectlyBalanced(leaf.right);
+        }
+        if (leaf.left == null && leaf.right == null) {
+            //System.out.println("IF2");
+            return true;
+        }
+        //System.out.println("RET");
+        return false;
+    }
+
     @Override
     public boolean contains(T data) {
         return recursiveContains(root, data);
@@ -113,8 +161,9 @@ public class StandardBinaryTree<T extends Comparable<T>> extends BinaryTree<T> {
         return recursiveContains(leaf.left, data) || recursiveContains(leaf.right, data);
     }
 
+    BinaryTree<T> mt = new MirroredBinaryTree<T>();
     @Override
     public BinaryTree<T> convertTree() {
-       return null;
+        return null;
     }
 }

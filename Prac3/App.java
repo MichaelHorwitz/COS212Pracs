@@ -6,25 +6,124 @@ public class App {
         //testHeight();
         //testContains();
         //testNumLeaves();
-        testFind();
+        //testFind();
+        //testFindParent();
+        //testBalance();
+        testConvert();
+    }
+    
+    static void testConvert(){
+        /* 
+        StandardBinaryTree<Integer> sbt = new StandardBinaryTree<Integer>();
+        System.out.println("SBT:");
+        sbt.depthFirstTraversal();
+        System.out.println("MT:");
+        sbt.convertTree().depthFirstTraversal();
+        sbt.insert(5);
+        System.out.println("SBT:");
+        sbt.depthFirstTraversal();
+        System.out.println("MT:");
+        sbt.convertTree().depthFirstTraversal();
+        sbt.insert(3);
+        sbt.insert(7);
+        System.out.println("SBT:");
+        sbt.depthFirstTraversal();
+        System.out.println("MT:");
+        sbt.convertTree().depthFirstTraversal();
+        sbt.insert(1);
+        System.out.println("SBT:");
+        sbt.depthFirstTraversal();
+        System.out.println("MT:");
+        sbt.convertTree().depthFirstTraversal();
+        sbt.insert(4);
+        sbt.insert(6);
+        sbt.insert(8);
+        System.out.println("SBT:");
+        sbt.depthFirstTraversal();
+        System.out.println("MT:");
+        sbt.convertTree().depthFirstTraversal();
+        */
+    }
+    
+    static void testBalance(){
+        StandardBinaryTree<Integer> sbt = new StandardBinaryTree<Integer>();
+        System.out.println(sbt.perfectlyBalanced());
+        sbt.insert(5);
+        System.out.println(sbt.perfectlyBalanced());
+        sbt.insert(3);
+        sbt.insert(7);
+        System.out.println(sbt.perfectlyBalanced());
+        sbt.insert(1);
+        System.out.println(sbt.perfectlyBalanced());
+        sbt.insert(4);
+        sbt.insert(6);
+        sbt.insert(8);
+        System.out.println(sbt.perfectlyBalanced());
+    }
+    
+    static void testFindParent(){
+        StandardBinaryTree<Integer> sbt = new StandardBinaryTree<Integer>();
+        System.out.println("Find Parent 5:");
+        System.out.println(sbt.findParent(5));
+        sbt.insert(5);
+        System.out.println("Find Parent 5:");
+        System.out.println(sbt.findParent(5));
+        
+        sbt.insert(3);
+        sbt.insert(7);
+        sbt.insert(1);
+        System.out.println("Find Parent 1:");
+        System.out.println(sbt.findParent(1));
+        System.out.println("Find Parent 8:");
+        System.out.println(sbt.findParent(8));
+        System.out.println("Find Parent 3:");
+        System.out.println(sbt.findParent(3));
+        System.out.println("Find Parent 5:");
+        System.out.println(sbt.findParent(5));
+        sbt.insert(4);
+        sbt.insert(6);
+        sbt.insert(8);
+        System.out.println("Find Parent 1:");
+        System.out.println(sbt.findParent(1));
+        System.out.println("Find Parent 8:");
+        System.out.println(sbt.findParent(8));
+        System.out.println("Find Parent 3:");
+        System.out.println(sbt.findParent(3));
+        System.out.println("Find Parent 5:");
+        System.out.println(sbt.findParent(5));
+        System.out.println("Find Parent 9:");
+        System.out.println(sbt.findParent(9));
+        System.out.println("Find Parent 0:");
+        System.out.println(sbt.findParent(0));
+        /*
+        */
     }
     
     static void testFind(){
         StandardBinaryTree<Integer> sbt = new StandardBinaryTree<Integer>();
-        System.out.println("find 5: " + sbt.find(5));
+        System.out.println("Find 5:");
+        System.out.println(sbt.find(5));
         sbt.insert(5);
-        System.out.println("find 5: " + sbt.find(5));
-        System.out.println("find 9: " + sbt.find(9));
+        System.out.println("Find 5:");
+        System.out.println(sbt.find(5));
+        System.out.println("Find 9:");
+        System.out.println(sbt.find(9));
         sbt.insert(3);
         sbt.insert(7);
         sbt.insert(1);
+        System.out.println("Find 3:");
+        System.out.println(sbt.find(3));
+        System.out.println("Find 7:");
+        System.out.println(sbt.find(7));
+        System.out.println("Find 1:");
+        System.out.println(sbt.find(1));
+        System.out.println("Find 5:");
+        System.out.println(sbt.find(5));
+        System.out.println("Find 9:");
+        System.out.println(sbt.find(9));
         sbt.insert(4);
-        System.out.println("find 5: " + sbt.find(5));
-        System.out.println("find 9: " + sbt.find(9));
         sbt.insert(6);
         sbt.insert(8);
-        System.out.println("find 5: " + sbt.find(5));
-        System.out.println("find 9: " + sbt.find(9));
     }
     
     static void testNumLeaves(){

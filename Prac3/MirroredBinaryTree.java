@@ -1,28 +1,28 @@
-/*
+
 public class MirroredBinaryTree<T extends Comparable<T>> extends BinaryTree<T> {
     @Override
     public boolean contains(T data) {
-        //TODO: Implement this function
+        return false;
     }
 
     @Override
     public void depthFirstTraversal() {
-        //TODO: Implement this function
+        return;
     }
     
     @Override
     public int numLeavesInTree() {
-        //TODO: Implement this function
+        return -1;
     }
 
     @Override
     public int height() {
-        //TODO: Implement this function
+        return -1;
     }
 
     @Override
     public Leaf<T> findParent(T data) {
-        //TODO: Implement this function
+        return null;
     }
 
     @Override
@@ -32,18 +32,17 @@ public class MirroredBinaryTree<T extends Comparable<T>> extends BinaryTree<T> {
     
     @Override
     public Leaf<T> find(T data) {
-        //TODO: Implement this function
+        return null;
     }
     
     @Override
     public boolean perfectlyBalanced() {
-        //TODO: Implement this function
+        return false;
     }
     
     @Override
     public BinaryTree<T> convertTree() {
-        //TODO: Implement this function
+        return null;
     }
 }
 
-*/
