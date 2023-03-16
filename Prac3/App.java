@@ -7,9 +7,9 @@ public class App {
         //testContains();
         //testNumLeaves();
         //testFind();
-        //testFindParent();
+        testFindParent();
         //testBalance();
-        testConvert();
+        //testConvert();
     }
     
     static void testConvert(){
@@ -62,45 +62,49 @@ public class App {
     }
     
     static void testFindParent(){
-        StandardBinaryTree<Integer> sbt = new StandardBinaryTree<Integer>();
-        System.out.println("Find Parent 5:");
-        System.out.println(sbt.findParent(5));
+        //StandardBinaryTree<Integer> sbt = new StandardBinaryTree<Integer>();
+        MirroredBinaryTree<Integer> sbt = new MirroredBinaryTree<Integer>();
+        // System.out.println("Find Parent 5:");
+        // System.out.println(sbt.findParent(5));
         sbt.insert(5);
-        System.out.println("Find Parent 5:");
-        System.out.println(sbt.findParent(5));
+        // System.out.println("Find Parent 5:");
+        // System.out.println(sbt.findParent(5));
         
         sbt.insert(3);
         sbt.insert(7);
         sbt.insert(1);
-        System.out.println("Find Parent 1:");
-        System.out.println(sbt.findParent(1));
-        System.out.println("Find Parent 8:");
-        System.out.println(sbt.findParent(8));
-        System.out.println("Find Parent 3:");
-        System.out.println(sbt.findParent(3));
-        System.out.println("Find Parent 5:");
-        System.out.println(sbt.findParent(5));
+        // System.out.println("Find Parent 1:");
+        // System.out.println(sbt.findParent(1));
+        // System.out.println("Find Parent 8:");
+        // System.out.println(sbt.findParent(8));
+        // System.out.println("Find Parent 3:");
+        // System.out.println(sbt.findParent(3));
+        // System.out.println("Find Parent 5:");
+        // System.out.println(sbt.findParent(5));
         sbt.insert(4);
         sbt.insert(6);
         sbt.insert(8);
+        System.out.println("Find Parent 4:");
+        System.out.println(sbt.findParent(4));
         System.out.println("Find Parent 1:");
         System.out.println(sbt.findParent(1));
         System.out.println("Find Parent 8:");
         System.out.println(sbt.findParent(8));
         System.out.println("Find Parent 3:");
         System.out.println(sbt.findParent(3));
-        System.out.println("Find Parent 5:");
-        System.out.println(sbt.findParent(5));
-        System.out.println("Find Parent 9:");
-        System.out.println(sbt.findParent(9));
-        System.out.println("Find Parent 0:");
-        System.out.println(sbt.findParent(0));
+        // System.out.println("Find Parent 5:");
+        // System.out.println(sbt.findParent(5));
+        // System.out.println("Find Parent 9:");
+        // System.out.println(sbt.findParent(9));
+        // System.out.println("Find Parent 0:");
+        // System.out.println(sbt.findParent(0));
         /*
         */
     }
     
     static void testFind(){
-        StandardBinaryTree<Integer> sbt = new StandardBinaryTree<Integer>();
+        //StandardBinaryTree<Integer> sbt = new StandardBinaryTree<Integer>();
+        MirroredBinaryTree<Integer> sbt = new MirroredBinaryTree<Integer>();
         System.out.println("Find 5:");
         System.out.println(sbt.find(5));
         sbt.insert(5);
@@ -111,6 +115,9 @@ public class App {
         sbt.insert(3);
         sbt.insert(7);
         sbt.insert(1);
+        sbt.insert(4);
+        System.out.println("Find 4:");
+        System.out.println(sbt.find(4));
         System.out.println("Find 3:");
         System.out.println(sbt.find(3));
         System.out.println("Find 7:");
@@ -121,13 +128,13 @@ public class App {
         System.out.println(sbt.find(5));
         System.out.println("Find 9:");
         System.out.println(sbt.find(9));
-        sbt.insert(4);
         sbt.insert(6);
         sbt.insert(8);
     }
     
     static void testNumLeaves(){
-        StandardBinaryTree<Integer> sbt = new StandardBinaryTree<Integer>();
+        //StandardBinaryTree<Integer> sbt = new StandardBinaryTree<Integer>();
+        MirroredBinaryTree<Integer> sbt = new MirroredBinaryTree<Integer>();
         System.out.println("NumLeaves: " + sbt.numLeavesInTree());
         sbt.insert(5);
         System.out.println("NumLeaves: " + sbt.numLeavesInTree());
@@ -142,26 +149,33 @@ public class App {
     }
 
     static void testContains(){
-        StandardBinaryTree<Integer> sbt = new StandardBinaryTree<Integer>();
+        //StandardBinaryTree<Integer> sbt = new StandardBinaryTree<Integer>();
+        MirroredBinaryTree<Integer> sbt = new MirroredBinaryTree<Integer>();
         System.out.println("Contains 5: " + sbt.contains(5));
+        System.out.println();
         sbt.insert(5);
         System.out.println("Contains 5: " + sbt.contains(5));
         System.out.println("Contains 9: " + sbt.contains(9));
+        System.out.println();
         sbt.insert(3);
         sbt.insert(7);
-        sbt.insert(5);
         sbt.insert(1);
-        sbt.insert(4);
+        System.out.println("Contains 7: " + sbt.contains(7));
+        System.out.println("Contains 1: " + sbt.contains(1));
         System.out.println("Contains 5: " + sbt.contains(5));
         System.out.println("Contains 9: " + sbt.contains(9));
+        System.out.println();
+        sbt.insert(4);
         sbt.insert(6);
         sbt.insert(8);
+        System.out.println("Contains 4: " + sbt.contains(4));
         System.out.println("Contains 5: " + sbt.contains(5));
         System.out.println("Contains 9: " + sbt.contains(9));
     }
 
     static void testHeight(){
-        StandardBinaryTree<Integer> sbt = new StandardBinaryTree<Integer>();
+        //StandardBinaryTree<Integer> sbt = new StandardBinaryTree<Integer>();
+        MirroredBinaryTree<Integer> sbt = new MirroredBinaryTree<Integer>();
         System.out.println("Height: " + sbt.height());
         sbt.insert(5);
         System.out.println("Height: " + sbt.height());
@@ -178,7 +192,8 @@ public class App {
 
     static void testPrint()
     {
-        StandardBinaryTree<Integer> sbt = new StandardBinaryTree<Integer>();
+        //StandardBinaryTree<Integer> sbt = new StandardBinaryTree<Integer>();
+        MirroredBinaryTree<Integer> sbt = new MirroredBinaryTree<Integer>();
         System.out.println("Empty: ");
         sbt.depthFirstTraversal();
         sbt.insert(5);

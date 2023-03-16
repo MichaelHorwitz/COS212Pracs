@@ -66,10 +66,30 @@ public class StandardBinaryTree<T extends Comparable<T>> extends BinaryTree<T> {
             System.out.println(root);
             return null;
         }
-        return recursiveFindParent(root, data);
+        return recursiveFindParent(null, root, data);
     }
     
-    private Leaf<T> recursiveFindParent(Leaf<T> parent, T data){
+    private Leaf<T> recursiveFindParent(Leaf<T> parent, Leaf<T> leaf, T data){
+        if (leaf == null) {
+            return null;
+        }
+        
+        if (leaf.data.compareTo(data) == 0) {
+            return parent;
+        }
+        
+        System.out.println(leaf);
+
+
+        if (leaf.data.compareTo(data) > 0) {
+            return recursiveFindParent(leaf, leaf.left, data);
+        }
+        if (leaf.data.compareTo(data) < 0) {
+            return recursiveFindParent(leaf, leaf.right, data);
+        }
+
+        return null;
+        /*
         if (parent == null) {
             return null;
         }
@@ -81,7 +101,7 @@ public class StandardBinaryTree<T extends Comparable<T>> extends BinaryTree<T> {
         if (parent.right != null && parent.right.data.compareTo(data) == 0) {
             return parent;
         }
-
+        
         if (parent.right != null && parent.right.data.compareTo(data) < 0) {
             //System.out.println("MOVE TO RIGHT");
             return recursiveFindParent(parent.right, data);
@@ -90,6 +110,7 @@ public class StandardBinaryTree<T extends Comparable<T>> extends BinaryTree<T> {
             return recursiveFindParent(parent.left, data);
         }
         return null;
+        */
         
     }
 
@@ -112,9 +133,10 @@ public class StandardBinaryTree<T extends Comparable<T>> extends BinaryTree<T> {
         if (leaf.data.compareTo(data) == 0) {
             return leaf;
         }
-        if (leaf.left != null && leaf.left.data.compareTo(data) >= 0) {
+        if (leaf.data.compareTo(data) > 0) {
             return recursiveFind(leaf.left, data);
-        } else if (leaf.right != null && leaf.right.data.compareTo(data) <= 0) {
+        }
+        if (leaf.data.compareTo(data) < 0) {
             return recursiveFind(leaf.right, data);
         }
         return null;
@@ -155,15 +177,27 @@ public class StandardBinaryTree<T extends Comparable<T>> extends BinaryTree<T> {
         if (leaf == null) {
             return false;
         }
+        System.out.println(leaf);
         if (leaf.data.compareTo(data) == 0) {
+            //System.out.println("found");
             return true;
         }
-        return recursiveContains(leaf.left, data) || recursiveContains(leaf.right, data);
+        if (leaf.left != null && leaf.data.compareTo(data) > 0) {
+            return recursiveContains(leaf.left, data);
+        }
+        if (leaf.right != null && leaf.data.compareTo(data) < 0){
+            return recursiveContains(leaf.right, data);
+        }
+        return false;
     }
 
     BinaryTree<T> mt = new MirroredBinaryTree<T>();
     @Override
     public BinaryTree<T> convertTree() {
+        return null;
+    }
+
+    private BinaryTree<T> recursiveConvert(){
         return null;
     }
 }
