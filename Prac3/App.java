@@ -1,19 +1,18 @@
 
 public class App {
     public static void main(String[] args) {
-        //test();
+        test();
         //testPrint();
         //testHeight();
         //testContains();
         //testNumLeaves();
         //testFind();
-        testFindParent();
+        //testFindParent();
         //testBalance();
         //testConvert();
     }
     
     static void testConvert(){
-        /* 
         StandardBinaryTree<Integer> sbt = new StandardBinaryTree<Integer>();
         System.out.println("SBT:");
         sbt.depthFirstTraversal();
@@ -42,11 +41,13 @@ public class App {
         sbt.depthFirstTraversal();
         System.out.println("MT:");
         sbt.convertTree().depthFirstTraversal();
+        /* 
         */
     }
     
     static void testBalance(){
-        StandardBinaryTree<Integer> sbt = new StandardBinaryTree<Integer>();
+        //StandardBinaryTree<Integer> sbt = new StandardBinaryTree<Integer>();
+        MirroredBinaryTree<Integer> sbt = new MirroredBinaryTree<Integer>();
         System.out.println(sbt.perfectlyBalanced());
         sbt.insert(5);
         System.out.println(sbt.perfectlyBalanced());

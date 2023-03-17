@@ -170,7 +170,19 @@ public class MirroredBinaryTree<T extends Comparable<T>> extends BinaryTree<T> {
     
     @Override
     public BinaryTree<T> convertTree() {
-        return null;
+        StandardBinaryTree<T> sbt = new StandardBinaryTree<T>();
+        return recursiveConvert(root, sbt);
+    }
+
+    private BinaryTree<T> recursiveConvert(Leaf<T> leaf, StandardBinaryTree sbt){
+        if (leaf == null) {
+            return sbt;
+        }
+        sbt.insert(leaf.data);
+        recursiveConvert(leaf.left, sbt);
+        recursiveConvert(leaf.right, sbt);
+
+        return sbt;
     }
 }
 

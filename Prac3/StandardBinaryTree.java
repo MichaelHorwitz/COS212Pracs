@@ -194,10 +194,18 @@ public class StandardBinaryTree<T extends Comparable<T>> extends BinaryTree<T> {
     BinaryTree<T> mt = new MirroredBinaryTree<T>();
     @Override
     public BinaryTree<T> convertTree() {
-        return null;
+        MirroredBinaryTree<T> mt = new MirroredBinaryTree<T>();
+        return recursiveConvert(root, mt);
     }
 
-    private BinaryTree<T> recursiveConvert(){
-        return null;
+    private BinaryTree<T> recursiveConvert(Leaf<T> leaf, MirroredBinaryTree mt){
+        if (leaf == null) {
+            return mt;
+        }
+        mt.insert(leaf.data);
+        recursiveConvert(leaf.right, mt);
+        recursiveConvert(leaf.left, mt);
+
+        return mt;
     }
 }
