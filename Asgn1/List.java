@@ -36,6 +36,7 @@ public class List<T extends Comparable<T>> {
     }
 
     public boolean remove(T val) {
+        //System.out.println("Removing: " + val);
         if (head == null) {
             return false;
         }
@@ -56,11 +57,11 @@ public class List<T extends Comparable<T>> {
     }
 
     public boolean remove(List<T> val) {
-        if (head == null) {
+        if (val == null) {
             return false;
         }
         boolean anyRemoved = false;
-        Node<T> currNode = head;
+        Node<T> currNode = val.head;
         while (currNode != null) {
             if(this.remove(currNode.data)){
                 anyRemoved = true;
@@ -71,10 +72,35 @@ public class List<T extends Comparable<T>> {
     }
 
     public boolean contains(T search) {
+        if (head == null) {
+            return false;
+        }
+        Node<T> currNode = head;
+        while (currNode != null) {
+            if (currNode.data.compareTo(search) == 0) {
+                return true;
+            }
+            currNode = currNode.next;
+        }
         return false;
     }
 
     public boolean equals(List<T> other) {
+        if (other == null) {
+            return false;
+        }
+        Node<T> listNode = head;
+        Node<T> otherNode = other.head;
+        while (listNode != null && otherNode != null) {
+            if (listNode.data.compareTo(otherNode.data) != 0) {
+                return false;
+            }
+            listNode = listNode.next;
+            otherNode = otherNode.next;
+        }
+        if (listNode == null && otherNode == null) {
+            return true;
+        }
         return false;
     }
 }

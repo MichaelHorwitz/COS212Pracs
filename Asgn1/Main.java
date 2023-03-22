@@ -17,7 +17,82 @@ public class Main {
         // task2();
         // task3();
         //testListAppend();
-        testListRemove();
+        //testListRemove();
+        //testListRemovelist();
+        //testListContains();
+        testListEquals();
+    }
+    
+    public static void testListEquals(){
+        List<String> li = new List<String>();
+        String [] strArr = {"A", "B", "B", "C", "D"};
+        for (String currStr : strArr) {
+            li.append(currStr);
+        }
+        System.out.println("li:\t" + li);
+        List<String> other = new List<String>();
+        String [] othArr = {"A", "B", "B", "C", "D"};
+        for (String currStr : othArr) {
+            other.append(currStr);
+        }
+        System.out.println("other:\t" + other);
+        System.out.println("Equals? " + li.equals(other));
+        
+        other = new List<String>();
+        String [] temp = {"A", "B", "D"};
+        othArr = temp;
+        for (String currStr : othArr) {
+            other.append(currStr);
+        }
+        System.out.println("other:\t" + other);
+        System.out.println("Equals? " + li.equals(other));
+
+        other = new List<String>();
+        othArr = new String[0];
+        for (String currStr : othArr) {
+            other.append(currStr);
+        }
+        System.out.println("other:\t" + other);
+        System.out.println("Equals? " + li.equals(other));
+        
+        System.out.println("null");
+        System.out.println("Equals? " + li.equals(null));
+    }
+    
+    public static void testListContains(){
+        List<String> li = new List<String>();
+        System.out.println("Search empty: ");
+        System.out.println(li.contains("A"));
+        String [] strArr = {"A", "B", "B", "C", "D"};
+        for (String currStr : strArr) {
+            li.append(currStr);
+        }
+        System.out.println(li);
+        String [] conArr = {"B", "B", "C", "Z", "D", "A", "A"};
+        for (String i : conArr) {
+            System.out.println("Searching for " + i);
+            System.out.println(li.contains(i));
+        }
+
+
+
+    }
+    
+    public static void testListRemovelist(){
+        List<String> li = new List<String>();
+        String [] strArr = {"A", "B", "B", "C", "D"};
+        for (String currStr : strArr) {
+            li.append(currStr);
+        }
+        System.out.println(li);
+        String [] delArr = {"B", "B", "C", "Z", "D", "A", "A"};
+        List<String> delLi = new List<String>();
+        for (String i : delArr) {
+            delLi.append(i);
+        }
+        li.remove(delLi);
+        System.out.println("New List: " + li);
+
     }
     
     public static void testListRemove(){
