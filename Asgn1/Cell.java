@@ -23,12 +23,33 @@ public class Cell {
      */
 
     public Cell(int nR, int nC, String inp) {
+        numRows = nR;
+        numCols = nC;
+        below = right = block = null;
+        if (inp.equals("-")) {
+            value = null;
+            int maxVal = numRows * numCols;
+            possibleValues = new List<Integer>();
+            for (int i = 0; i <= maxVal; i++) {
+                possibleValues.append(i);
+            }
+            return;
+        }
+        value = Integer.parseInt(inp);
+        possibleValues = null;
+
     }
 
     public void removeVal(int val) {
+        if (possibleValues == null) {
+            return;
+        }
+        possibleValues.remove(val);
     }
 
     public void setVal(int val) {
+        value = val;
+        possibleValues = null;
     }
 
 }
