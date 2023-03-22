@@ -13,9 +13,44 @@ public class Main {
      * THESE TESTS ARE TRIVIAL. Make sure you expand and do more testing
      */
     public static void main(String[] args) {
-        task1();
-        task2();
-        task3();
+        // task1();
+        // task2();
+        // task3();
+        //testListAppend();
+        testListRemove();
+    }
+    
+    public static void testListRemove(){
+        List<String> li = new List<String>();
+        String [] strArr = {"A", "B", "B", "C", "D"};
+        for (String currStr : strArr) {
+            li.append(currStr);
+        }
+        System.out.println(li);
+        String [] delArr = {"C", "D", "Z", "B", "B", "A", "A"};
+        for (String delStr : delArr) {
+            System.out.println("remove: " + delStr);
+            System.out.println(li.remove(delStr));
+            System.out.println(li);
+        }
+    }
+    
+    public static void testListAppend(){
+        List<String> li = new List<String>();
+        System.out.println(li);
+
+        li.append("A");
+        System.out.println(li);
+        
+        li.append("A");
+        System.out.println(li);
+        
+        li.append("B");
+        System.out.println(li);
+        
+        li.append("D");
+        System.out.println(li);
+
     }
 
     public static void task1() {
