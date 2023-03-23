@@ -20,7 +20,24 @@ public class Main {
         //testListRemove();
         //testListRemovelist();
         //testListContains();
-        testListEquals();
+        //testListEquals();
+        //testCell();
+        testRow();
+    }
+    
+    public static void testRow(){
+        Board bd = new Board(2, 3, "4 6 2 5 3 1 3 1 5 6 2 4 6 4 3 1 5 2 2 5 1 4 6 3 5 3 4 2 1 6 1 2 6 3 4 5");
+        //bd.setLinks();
+    }
+    
+    public static void testCell(){
+        Cell cell = new Cell(4, 4, "1");
+        System.out.println("Cell: " + cell);
+
+        System.out.println("Remove 2: ");
+        cell.removeVal(1);
+        cell.removeVal(-1);
+        cell.setVal(14);
     }
     
     public static void testListEquals(){
