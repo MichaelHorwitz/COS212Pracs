@@ -26,6 +26,7 @@ public class List<T extends Comparable<T>> {
         Node<T> newNode = new Node<T>(val);
         if (head == null) {
             head = newNode;
+            length++;
             return;
         }
         Node<T> currNode = head;
@@ -33,6 +34,7 @@ public class List<T extends Comparable<T>> {
             currNode = currNode.next;
         }
         currNode.next = newNode;
+        length++;
     }
 
     public boolean remove(T val) {
@@ -50,9 +52,11 @@ public class List<T extends Comparable<T>> {
         }
         if (prevNode == null) {
             head = head.next;
+            length--;
             return true;
         }
         prevNode.next = currNode.next;
+        length--;
         return true;
     }
 

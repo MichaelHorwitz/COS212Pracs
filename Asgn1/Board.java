@@ -226,71 +226,305 @@ public class Board {
     }
 
     public boolean soleCandidate() {
-        //for ( Loop through rows with a loop variable called row ) { 
-        for (Cell row: rows) {
-            //Create a 1 D int array of size { numRows * numCols } and call it counts 
-            int [] counts = new int[numRows * numCols];
-            //Create a Cell variable called rowPtr and set it equal to row 
-            Cell rowPtr = row;
-            //while ( rowPtr is not null ) { 
-            while (rowPtr != null) {
-                //if( rowPtr has possibleValues ) {
-                if (rowPtr.possibleValues != null && rowPtr.possibleValues.head != null) {
-                    //Create a Node < Integer > variable called nodePtr and set it equal to the first node in the rowPtr possibleValues
-                    Node<Integer> nodePtr = rowPtr.possibleValues.head;
-                    //while ( nodePtr is not null ) { 
-                    while (nodePtr != null) {
-                        //increment counts [ nodePtr . data - 1]
-                        counts[nodePtr.data - 1]++;
-                        //update nodePtr to the next value
-                        nodePtr = nodePtr.next;
-                    //}
-                    }
-                //}
-                }
-                //update rowPtr to the next value
-                rowPtr = rowPtr.right;
-            //}
-            }
-            //for ( i in range [0 , numRows * numCols ]) {
-            for (int i = 0; i < numRows * numCols; i++) {
-                //if( counts [ i ] == 1) {
-                if (counts[i] == 1) {
-                    //rowPtr = row
-                    rowPtr = row;                    
-                    //while ( rowPtr is not null ) {
-                    while (rowPtr != null) {
-                        //if( rowPtr has possibleValues and contains { i + 1}) {
-                        if (rowPtr.possibleValues != null && rowPtr.possibleValues.contains(i + 1)) {
-                            //Call setVal on rowPtr with { i + 1 }
-                            rowPtr.setVal(i + 1);
-                            //Call propCell with rowPtr
-                            propCell(rowPtr);
-                        //}
-                        }
-                        //update rowPtr to the next val
-                        rowPtr = rowPtr.right;
-                    //}
-                    }
-                    //return true
-                    return true;
-                //}
-                }
+        //for ( Loop through cells wit a loop variable called c ) {
+        for (Cell c : cells) {
+            //if( c has possibleValues and the length of possibleValues is 1) {
+            if (c.possibleValues != null && c.possibleValues.length == 1) {
+                //Save the data of the head of c . possibleValues into a variable called value
+                int value = c.possibleValues.head.data;
+                //Call setVal on c using value
+                c.setVal(value);
+                //Call propCell with c
+                propCell(c);
+                //return true
+                return true;
             //}
             }
         //}
         }
-        //Repeat the above for cols 29
-        //Repeat the above for blocks 30
         //return false
         return false;
     }
 
     public boolean uniqueCandidate() {
-        return false;
+        //for ( Loop through rows with a loop variable called row ) { 
+            for (Cell row: rows) {
+                //Create a 1 D int array of size { numRows * numCols } and call it counts 
+                int [] counts = new int[numRows * numCols];
+                //Create a Cell variable called rowPtr and set it equal to row 
+                Cell rowPtr = row;
+                //while ( rowPtr is not null ) { 
+                while (rowPtr != null) {
+                    //if( rowPtr has possibleValues ) {
+                    if (rowPtr.possibleValues != null && rowPtr.possibleValues.head != null) {
+                        //Create a Node < Integer > variable called nodePtr and set it equal to the first node in the rowPtr possibleValues
+                        Node<Integer> nodePtr = rowPtr.possibleValues.head;
+                        //while ( nodePtr is not null ) { 
+                        while (nodePtr != null) {
+                            //increment counts [ nodePtr . data - 1]
+                            counts[nodePtr.data - 1]++;
+                            //update nodePtr to the next value
+                            nodePtr = nodePtr.next;
+                        //}
+                        }
+                    //}
+                    }
+                    //update rowPtr to the next value
+                    rowPtr = rowPtr.right;
+                //}
+                }
+                //for ( i in range [0 , numRows * numCols ]) {
+                for (int i = 0; i < numRows * numCols; i++) {
+                    //if( counts [ i ] == 1) {
+                    if (counts[i] == 1) {
+                        //rowPtr = row
+                        rowPtr = row;                    
+                        //while ( rowPtr is not null ) {
+                        while (rowPtr != null) {
+                            //if( rowPtr has possibleValues and contains { i + 1}) {
+                            if (rowPtr.possibleValues != null && rowPtr.possibleValues.contains(i + 1)) {
+                                //Call setVal on rowPtr with { i + 1 }
+                                rowPtr.setVal(i + 1);
+                                //Call propCell with rowPtr
+                                propCell(rowPtr);
+                            //}
+                            }
+                            //update rowPtr to the next val
+                            rowPtr = rowPtr.right;
+                        //}
+                        }
+                        //return true
+                        return true;
+                    //}
+                    }
+                //}
+                }
+            //}
+            }
+            //Repeat the above for cols
+            for (Cell col: cols) {
+                //Create a 1 D int array of size { numRows * numCols } and call it counts 
+                int [] counts = new int[numRows * numCols];
+                //Create a Cell variable called rowPtr and set it equal to row 
+                Cell colPtr = col;
+                //while ( rowPtr is not null ) { 
+                while (colPtr != null) {
+                    //if( rowPtr has possibleValues ) {
+                    if (colPtr.possibleValues != null && colPtr.possibleValues.head != null) {
+                        //Create a Node < Integer > variable called nodePtr and set it equal to the first node in the rowPtr possibleValues
+                        Node<Integer> nodePtr = colPtr.possibleValues.head;
+                        //while ( nodePtr is not null ) { 
+                        while (nodePtr != null) {
+                            //increment counts [ nodePtr . data - 1]
+                            counts[nodePtr.data - 1]++;
+                            //update nodePtr to the next value
+                            nodePtr = nodePtr.next;
+                        //}
+                        }
+                    //}
+                    }
+                    //update rowPtr to the next value
+                    colPtr = colPtr.below;
+                //}
+                }
+                //for ( i in range [0 , numRows * numCols ]) {
+                for (int i = 0; i < numRows * numCols; i++) {
+                    //if( counts [ i ] == 1) {
+                    if (counts[i] == 1) {
+                        //rowPtr = row
+                        colPtr = col;                    
+                        //while ( rowPtr is not null ) {
+                        while (colPtr != null) {
+                            //if( rowPtr has possibleValues and contains { i + 1}) {
+                            if (colPtr.possibleValues != null && colPtr.possibleValues.contains(i + 1)) {
+                                //Call setVal on rowPtr with { i + 1 }
+                                colPtr.setVal(i + 1);
+                                //Call propCell with rowPtr
+                                propCell(colPtr);
+                            //}
+                            }
+                            //update rowPtr to the next val
+                            colPtr = colPtr.right;
+                        //}
+                        }
+                        //return true
+                        return true;
+                    //}
+                    }
+                //}
+                }
+            //}
+            }
+            //Repeat the above for blocks
+            for (Cell block: blocks) {
+                //Create a 1 D int array of size { numRows * numCols } and call it counts 
+                int [] counts = new int[numRows * numCols];
+                //Create a Cell variable called rowPtr and set it equal to row 
+                Cell blockPtr = block;
+                //while ( rowPtr is not null ) { 
+                while (blockPtr != null) {
+                    //if( rowPtr has possibleValues ) {
+                    if (blockPtr.possibleValues != null && blockPtr.possibleValues.head != null) {
+                        //Create a Node < Integer > variable called nodePtr and set it equal to the first node in the rowPtr possibleValues
+                        Node<Integer> nodePtr = blockPtr.possibleValues.head;
+                        //while ( nodePtr is not null ) { 
+                        while (nodePtr != null) {
+                            //increment counts [ nodePtr . data - 1]
+                            counts[nodePtr.data - 1]++;
+                            //update nodePtr to the next value
+                            nodePtr = nodePtr.next;
+                        //}
+                        }
+                    //}
+                    }
+                    //update rowPtr to the next value
+                    blockPtr = blockPtr.block;
+                //}
+                }
+                //for ( i in range [0 , numRows * numCols ]) {
+                for (int i = 0; i < numRows * numCols; i++) {
+                    //if( counts [ i ] == 1) {
+                    if (counts[i] == 1) {
+                        //rowPtr = row
+                        blockPtr = block;                    
+                        //while ( rowPtr is not null ) {
+                        while (blockPtr != null) {
+                            //if( rowPtr has possibleValues and contains { i + 1}) {
+                            if (blockPtr.possibleValues != null && blockPtr.possibleValues.contains(i + 1)) {
+                                //Call setVal on rowPtr with { i + 1 }
+                                blockPtr.setVal(i + 1);
+                                //Call propCell with rowPtr
+                                propCell(blockPtr);
+                            //}
+                            }
+                            //update rowPtr to the next val
+                            blockPtr = blockPtr.right;
+                        //}
+                        }
+                        //return true
+                        return true;
+                    //}
+                    }
+                //}
+                }
+            //}
+            }
+            //return false
+            return false;
     }
 
     public boolean duplicateCells() {
+        //for ( Loop through rows with a loop variable called row ) { 
+        for (Cell row : rows) {
+            //Create Cell variable called rowPtr and set it equal to row 
+            Cell rowPtr = row;
+            //while ( rowPtr is not null ) {
+            while (rowPtr != null) {
+                //if( rowPtr has possibleValues and the length is 2) {
+                if (rowPtr.possibleValues != null && rowPtr.possibleValues.length == 2) {
+                    //Create a Cell variable called secondPtr and set it equal to rowPtr . right
+                    Cell secondPtr = rowPtr.right;
+                    //while ( secondPtr is not null ){ 
+                    while (secondPtr != null) {
+                        //if( rowPtr . possibleValues equals secondPtr . possibleValues ) {
+                        if (rowPtr.possibleValues.equals(secondPtr.possibleValues)) {
+                            //Create a Cell variable called thirdPtr and set it equal to row
+                            Cell thirdPtr = row;
+                            //Create a boolean variable change and set it equal to false
+                            boolean change = false;
+                            //while ( thirdPtr is not null ) {
+                                while (thirdPtr!= null) {
+                                //if( thirdPtr is not secondPtr and thirdPtr is not rowPtr and thirdPtr has possibleValues ) {
+                                if (!thirdPtr.equals(secondPtr) && !thirdPtr.equals(rowPtr) && thirdPtr.possibleValues != null) {
+                                    //change = change || thirdPtr . possibleValues . remove ( rowPtr . possibleValues )
+                                    change = change || thirdPtr.possibleValues.remove(rowPtr.possibleValues);
+                            //}
+                            }
+                            //update thirdPtr to the next val 
+                            thirdPtr = thirdPtr.right;
+                            //}
+                            }
+                            //if( change ) {
+                                if (change) {
+                                //return true
+                                return true;
+                                
+                            //}
+                            }
+                            
+                        //}
+                        }
+                        //update secondPtr to the next val
+                        secondPtr = secondPtr.right;
+                        
+                    //}
+                    }
+                    
+                //}
+                }
+                //update rowPtr to the next val
+                rowPtr = rowPtr.right;
+            //}
+            }
+        //}
+        }
+        //Repeat the above for cols 27
+                //for ( Loop through rows with a loop variable called row ) { 
+                    for (Cell col : cols) {
+                        //Create Cell variable called rowPtr and set it equal to row 
+                        Cell colPtr = col;
+                        //while ( rowPtr is not null ) {
+                        while (colPtr != null) {
+                            //if( rowPtr has possibleValues and the length is 2) {
+                            if (colPtr.possibleValues != null && colPtr.possibleValues.length == 2) {
+                                //Create a Cell variable called secondPtr and set it equal to rowPtr . right
+                                Cell secondPtr = colPtr.below;
+                                //while ( secondPtr is not null ){ 
+                                while (secondPtr != null) {
+                                    //if( rowPtr . possibleValues equals secondPtr . possibleValues ) {
+                                    if (colPtr.possibleValues.equals(secondPtr.possibleValues)) {
+                                        //Create a Cell variable called thirdPtr and set it equal to row
+                                        Cell thirdPtr = col;
+                                        //Create a boolean variable change and set it equal to false
+                                        boolean change = false;
+                                        //while ( thirdPtr is not null ) {
+                                            while (thirdPtr!= null) {
+                                            //if( thirdPtr is not secondPtr and thirdPtr is not rowPtr and thirdPtr has possibleValues ) {
+                                            if (!thirdPtr.equals(secondPtr) && !thirdPtr.equals(colPtr) && thirdPtr.possibleValues != null) {
+                                                //change = change || thirdPtr . possibleValues . remove ( rowPtr . possibleValues )
+                                                change = change || thirdPtr.possibleValues.remove(colPtr.possibleValues);
+                                        //}
+                                        }
+                                        //update thirdPtr to the next val 
+                                        thirdPtr = thirdPtr.below;
+                                        //}
+                                        }
+                                        //if( change ) {
+                                            if (change) {
+                                            //return true
+                                            return true;
+                                            
+                                        //}
+                                        }
+                                        
+                                    //}
+                                    }
+                                    //update secondPtr to the next val
+                                    secondPtr = secondPtr.below;
+                                    
+                                //}
+                                }
+                                
+                            //}
+                            }
+                            //update rowPtr to the next val
+                            colPtr = colPtr.below;
+                        //}
+                        }
+                    //}
+                    }
+        //Repeat the above for blocks 28
+        //return false
         return false;
     }
 }
