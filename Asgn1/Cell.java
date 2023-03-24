@@ -30,7 +30,7 @@ public class Cell {
             value = null;
             int maxVal = numRows * numCols;
             possibleValues = new List<Integer>();
-            for (int i = 0; i <= maxVal; i++) {
+            for (int i = 1; i <= maxVal; i++) {
                 possibleValues.append(i);
             }
             return;

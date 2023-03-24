@@ -22,12 +22,23 @@ public class Main {
         //testListContains();
         //testListEquals();
         //testCell();
-        testRow();
+        //testRow();
+        testProp();
+    }
+    
+    public static void testProp(){
+        //                                          4 6 2 5 3 1 3 1 5 6 2 4 6 4 3 1 5 2 2 5 1 4 6 3 5 3 4 2 1 6 1 2 6 3 4 5
+        Board bd = new Board(2, 3, "4 6 2 5 3 1 3 1 5 - 2 4 6 4 3 1 5 - 2 5 1 4 6 3 5 3 - 2 1 6 1 2 6 3 4 5");
+        System.out.println(bd.toString());
+        bd.fullProp();
+        System.out.println(bd.cellAt(1, 3).possibleValues);
+        
     }
     
     public static void testRow(){
         Board bd = new Board(2, 3, "4 6 2 5 3 1 3 1 5 6 2 4 6 4 3 1 5 2 2 5 1 4 6 3 5 3 4 2 1 6 1 2 6 3 4 5");
-        //bd.setLinks();
+        bd.testLinks();
+        System.out.println(bd.toString());
     }
     
     public static void testCell(){

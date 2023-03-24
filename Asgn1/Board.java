@@ -125,58 +125,42 @@ public class Board {
         rows = new Cell[numRows * numCols];
         cols = new Cell[numRows * numCols];
         blocks = new Cell[numRows * numCols];
+        //Set for rows
         for (int i = 0; i < numCells; i++) {
-            //System.out.println("i: " + i);
-            //System.out.println("cells[i]: " + cells[i]);
-            //System.out.println("currRow: " + i/(numRows*numCols));
             int currRow = i/(numRows*numCols);
             if (i%(numRows*numCols) == 0) {
                 rows[currRow] = cells[i];
+                rows[currRow].r = currRow;
             } else {
+                cells[i].r = currRow;
                 cells[i - 1].right = cells[i];
             }
         }
-        /* 
-         System.out.println("numRows: " + numRows);
-         for (int i = 0; i < numRows * numCols; i++) {
-             //System.out.println("i: " + i);
-             Cell currCell = rows[i];
-             while (currCell != null) {
-                 System.out.print(currCell + " ");
-                 currCell = currCell.right;
-                }
-            System.out.println();
-        }
-        */
         
+        //Set for cols
         Cell [] currCells = new Cell[numCols * numRows];
 
+        //Set cols array
         for (int i = 0;i < numRows * numCols; i++) {
             cols[i] = cells[i];
             currCells[i] = cols[i];
+            cols[i].c = i;
         }
+        //Set links in cols
         for (int i = numRows * numCols; i < numCells; i++) {
             int currPos = i % (numRows * numCols);
+            currCells[currPos].c = currPos;
             currCells[currPos].below = cells[i];
             currCells[currPos] = cells[i];
-        }
-
-                /*
-        for (int i = 0; i < numRows * numCols; i++) {
-            Cell currCell = cols[i];
-            while (currCell != null) {
-                System.out.print(currCell + " ");
-                currCell = currCell.below;
-            }
-            System.out.println();
-        }
-        */
-        
+        }  
+        //set for blocks
         int i = 0;
         int currBlock = 0;
+        //set blocks arr
         while (i < numCells) {
             for (int j = 0; j < numRows; j++) {
                 blocks[currBlock] = cells[i];
+                cells[i].b = currBlock;
                 currBlock++;
                 i += numCols;
             }
@@ -184,49 +168,121 @@ public class Board {
                 i += numRows * numCols;
             }
         }
+        //set links in each block
         for (int j = 0; j < numRows * numCols; j++) {
-            System.out.println("Main Outer");
-            //use prev node to link
+            Cell prevCell = null;
             Cell currCell = blocks[j];
-            Cell cellBelow = currCell.below;
+            Cell firstCell = blocks[j];
             for (int l = 0; l < numRows; l++) {
-                for (int k = 0; k < numCols - 1 ; k++) {
-                    System.out.println("currCell: " + currCell);
-                    currCell.block = currCell.right;
-                    currCell = currCell.block;
+                for (int k = 0; k < numCols; k++) {
+                    if (prevCell != null) {
+                        prevCell.block = currCell;
+                    }
+                    currCell.b = j;
+                    prevCell = currCell;
+                    currCell = currCell.right;
                 }
-                System.out.println("currCell: " + currCell);
-                currCell.block = cellBelow;
-                currCell = currCell.block;
-                if (cellBelow != null) {
-                    cellBelow = cellBelow.below;
-                }
+                prevCell.block = currCell;
+                currCell = firstCell.below;
+                firstCell = firstCell.below;
             }
-            if (currCell != null) {
-                currCell.block = null;
-            }
+            prevCell.block = null;
         }
-        for (int j = 0; j < numRows * numCols; j++) {
-            Cell currCell = blocks[j];
-            while (currCell != null) {
-                System.out.print(currCell + " ");
-                currCell = currCell.block;
-            }
-            System.out.println();
-        }
-        
     }
     
     public void fullProp() {
+        for (int i = 0; i < numRows * numCols * numRows * numCols; i++) {
+            propCell(cells[i]);
+        }
     }
 
     public void propCell(Cell cell) {
+        if (cell.value == null) {
+            return;
+        }
+        Cell currCell = rows[cell.r];
+        while (currCell != null) {
+            currCell.removeVal(cell.value);
+            currCell = currCell.right;
+        }
+        currCell = cols[cell.c];
+        while (currCell != null) {
+            currCell.removeVal(cell.value);
+            currCell = currCell.below;
+        }
+        currCell = blocks[cell.b];
+        while (currCell != null) {
+            currCell.removeVal(cell.value);
+            currCell = currCell.block;
+        }
     }
 
     public void solve() {
+        int counter = 0;
+        while (soleCandidate() || uniqueCandidate() || duplicateCells()) {
+            counter++;
+        }
+        System.out.println("Number of moves: " + counter);
     }
 
     public boolean soleCandidate() {
+        //for ( Loop through rows with a loop variable called row ) { 
+        for (Cell row: rows) {
+            //Create a 1 D int array of size { numRows * numCols } and call it counts 
+            int [] counts = new int[numRows * numCols];
+            //Create a Cell variable called rowPtr and set it equal to row 
+            Cell rowPtr = row;
+            //while ( rowPtr is not null ) { 
+            while (rowPtr != null) {
+                //if( rowPtr has possibleValues ) {
+                if (rowPtr.possibleValues != null && rowPtr.possibleValues.head != null) {
+                    //Create a Node < Integer > variable called nodePtr and set it equal to the first node in the rowPtr possibleValues
+                    Node<Integer> nodePtr = rowPtr.possibleValues.head;
+                    //while ( nodePtr is not null ) { 
+                    while (nodePtr != null) {
+                        //increment counts [ nodePtr . data - 1]
+                        counts[nodePtr.data - 1]++;
+                        //update nodePtr to the next value
+                        nodePtr = nodePtr.next;
+                    //}
+                    }
+                //}
+                }
+                //update rowPtr to the next value
+                rowPtr = rowPtr.right;
+            //}
+            }
+            //for ( i in range [0 , numRows * numCols ]) {
+            for (int i = 0; i < numRows * numCols; i++) {
+                //if( counts [ i ] == 1) {
+                if (counts[i] == 1) {
+                    //rowPtr = row
+                    rowPtr = row;                    
+                    //while ( rowPtr is not null ) {
+                    while (rowPtr != null) {
+                        //if( rowPtr has possibleValues and contains { i + 1}) {
+                        if (rowPtr.possibleValues != null && rowPtr.possibleValues.contains(i + 1)) {
+                            //Call setVal on rowPtr with { i + 1 }
+                            rowPtr.setVal(i + 1);
+                            //Call propCell with rowPtr
+                            propCell(rowPtr);
+                        //}
+                        }
+                        //update rowPtr to the next val
+                        rowPtr = rowPtr.right;
+                    //}
+                    }
+                    //return true
+                    return true;
+                //}
+                }
+            //}
+            }
+        //}
+        }
+        //Repeat the above for cols 29
+        //Repeat the above for blocks 30
+        //return false
         return false;
     }
 
