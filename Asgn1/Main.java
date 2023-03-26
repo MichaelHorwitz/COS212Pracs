@@ -13,17 +13,37 @@ public class Main {
      * THESE TESTS ARE TRIVIAL. Make sure you expand and do more testing
      */
     public static void main(String[] args) {
-        // task1();
-        // task2();
-        // task3();
+         task1();
+         task2();
+         task3();
         //testListAppend();
         //testListRemove();
         //testListRemovelist();
         //testListContains();
         //testListEquals();
         //testCell();
+        //testLinks();
         //testRow();
-        testProp();
+        //testProp();
+        //testSolve();
+    }
+    
+    public static void testLinks(){
+        //                                          4 3 6 2 5 1 6 1 4 5 3 2 2 5 3 1 4 6 5 6 1 4 2 3 3 2 5 6 1 4 1 4 2 3 6 5
+        Board bd = new Board(3, 2, "4 3 6 - 5 1 6 1 4 5 - 2 2 5 3 1 4 6 5 6 1 4 2 3 3 2 5 6 1 4 1 4 2 3 6 5");
+        System.out.println(bd);
+        //bd.testLinks();
+
+
+    }
+    
+    public static void testSolve(){
+        //                                          4 3 6 2 5 1 6 1 4 5 3 2 2 5 3 1 4 6 5 6 1 4 2 3 3 2 5 6 1 4 1 4 2 3 6 5
+        Board bd = new Board(3, 2, "4 3 6 - 5 1 6 1 4 5 - 2 2 5 3 1 4 6 5 6 1 4 2 3 3 2 5 6 1 4 1 4 2 3 6 5");
+        System.out.println(bd);
+        bd.fullProp();
+        bd.solve();
+        System.out.println(bd);
     }
     
     public static void testProp(){
@@ -177,7 +197,7 @@ public class Main {
 
     public static void task2() {
         System.out.println("==========\nTask2\n==========");
-        SudokuSolver s1 = new SudokuSolver("2x3.txt");
+        SudokuSolver s1 = new SudokuSolver("E:\\Documents\\GitHub\\COS212Pracs\\Asgn1\\test.txt");
         System.out.println("### Print Board ###");
         System.out.println(s1.board());
         System.out.println("### testLinks ###");
@@ -188,7 +208,7 @@ public class Main {
 
     public static void task3() {
         System.out.println("==========\nTask3\n==========");
-        SudokuSolver s1 = new SudokuSolver("2x3.txt");
+        SudokuSolver s1 = new SudokuSolver("E:\\Documents\\GitHub\\COS212Pracs\\Asgn1\\test.txt");
         s1.solveBoard();
     }
 }
