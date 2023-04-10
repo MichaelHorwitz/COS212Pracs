@@ -43,7 +43,9 @@ public class Treap<T extends Comparable<T>> {
         //Insert as Binary Tree
         Node<T> currNode = root;
         Node<T> prevNode = null;
+        Node<T> gpNode = null;
         while (currNode != null) {
+            gpNode = prevNode;
             prevNode = currNode;
             if (data.compareTo(currNode.data) < 0) {
                 currNode = prevNode.left;
@@ -53,10 +55,11 @@ public class Treap<T extends Comparable<T>> {
         }
         if (data.compareTo(prevNode.data) < 0) {
             prevNode.left = newNode;
+            currNode = prevNode.left;
         } else {
             prevNode.right = newNode;
+            currNode = prevNode.right;
         }
-        
         
 
     }
