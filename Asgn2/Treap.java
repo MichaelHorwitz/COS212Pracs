@@ -1,3 +1,5 @@
+import javax.imageio.ImageTypeSpecifier;
+
 public class Treap<T extends Comparable<T>> {
     public Node<T> root = null;
 
@@ -60,8 +62,39 @@ public class Treap<T extends Comparable<T>> {
             prevNode.right = newNode;
             currNode = prevNode.right;
         }
-        
+        root = correctPriority(null, data, root)        
 
+    }
+
+    private Node<T> correctPriority(Node<T> pNode, T data, Node<T> cNode){
+        if (data.equals(cNode.data)) {
+            return cNode;
+        }
+        if (data.compareTo(cNode.data) < 0) {
+            cNode = correctPriority(cNode, data, cNode.left);
+            if (cNode.left.priority > cNode.priority) {
+                pNode.left = cNode.right;
+                cNode.right = pNode;
+                return cNode;    
+                //rotation 
+                //return cNode
+            } else {
+                return pNode;
+            }
+        }
+        if (data.compareTo(cNode.data) > 0) {
+            cNode = correctPriority(cNode, data, cNode.right);
+            if (cNode.right.priority > cNode.priority) {
+                pNode.right = cNode.left;
+                cNode.left = pNode;
+                return cNode;    
+                //rotation 
+                //return cNode
+            } else {
+                return pNode;
+            }
+        }
+        return pNode;
     }
 
     public Node<T> remove(T data) {
