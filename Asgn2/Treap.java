@@ -34,6 +34,31 @@ public class Treap<T extends Comparable<T>> {
      */
 
     public void insert(T data) throws DatabaseException {
+        Node<T> newNode = new Node<T>(data);
+        if (root == null) {
+            root = newNode;
+            return;
+        }
+
+        //Insert as Binary Tree
+        Node<T> currNode = root;
+        Node<T> prevNode = null;
+        while (currNode != null) {
+            prevNode = currNode;
+            if (data.compareTo(currNode.data) < 0) {
+                currNode = prevNode.left;
+            } else {
+                currNode = prevNode.right;
+            }
+        }
+        if (data.compareTo(prevNode.data) < 0) {
+            prevNode.left = newNode;
+        } else {
+            prevNode.right = newNode;
+        }
+        
+        
+
     }
 
     public Node<T> remove(T data) {

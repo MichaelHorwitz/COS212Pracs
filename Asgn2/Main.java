@@ -1,8 +1,23 @@
 public class Main {
 
     public static void main(String[] args) {
-        task1();
-        task2();
+        //task1();
+        //task2();
+        testTreapIns();
+    }
+    public static void testTreapIns(){
+        Treap<String> treap = new Treap<String>();
+        String[] strAdd = {"A", "Z", "F", "M", "S", "D", "P", "X", "N", "E"};
+        try {
+            System.out.println(treap.toString());
+            for (String string : strAdd) {
+                treap.insert(string);
+                System.out.println(treap.toString());
+            }
+        } catch (Exception e) {
+            System.out.println("Database Exception");
+            e.printStackTrace();
+        }
     }
 
     public static void task1() {
