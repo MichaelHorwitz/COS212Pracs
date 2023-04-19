@@ -1,3 +1,5 @@
+import org.w3c.dom.Node;
+
 public class BTree<T extends Comparable<T>> {
 
 	private int m;
@@ -8,8 +10,11 @@ public class BTree<T extends Comparable<T>> {
 	 * @param m
 	 */
 	public BTree(int m) {
-		// TODO - implement BTree.BTree
-		throw new UnsupportedOperationException();
+		this.m = m;
+		
+		if (m <= 0) {
+			throw new UnsupportedOperationException();
+		}
 	}
 
 	/**
@@ -17,7 +22,9 @@ public class BTree<T extends Comparable<T>> {
 	 * @param data
 	 */
 	public Node<T> insert(T data) {
-		// TODO - implement BTree.insert
+		if (root.keyTally == 0) {
+			root.insertNode(data);
+		}
 		throw new UnsupportedOperationException();
 	}
 
