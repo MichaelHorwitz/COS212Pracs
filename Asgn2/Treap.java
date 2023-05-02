@@ -36,67 +36,40 @@ public class Treap<T extends Comparable<T>> {
      */
 
     public void insert(T data) throws DatabaseException {
+        
         Node<T> newNode = new Node<T>(data);
         if (root == null) {
             root = newNode;
             return;
         }
-
+        binIns(newNode);
+        
         //Insert as Binary Tree
-        Node<T> currNode = root;
-        Node<T> prevNode = null;
-        Node<T> gpNode = null;
+
+    }
+    private Node<T> doRotations(Node<T> currNode){
+        
+        return currNode;
+    }
+    private Node<T> binIns(Node<T> newNode){
+        Node<T> prevNode = null, currNode = root;
         while (currNode != null) {
-            gpNode = prevNode;
             prevNode = currNode;
-            if (data.compareTo(currNode.data) < 0) {
-                currNode = prevNode.left;
-            } else {
-                currNode = prevNode.right;
+            if (newNode.data.compareTo(currNode.data) > 0) {
+                currNode = currNode.right;
+            } else if (newNode.data.compareTo(currNode.data) < 0){
+                currNode = currNode.left;
+            } else if(newNode.data.equals(currNode.data)){
+                throw DatabaseException.duplicateInsert(newNode.data);
             }
         }
-        if (data.compareTo(prevNode.data) < 0) {
-            prevNode.left = newNode;
-            currNode = prevNode.left;
-        } else {
+        if (newNode.data.compareTo(prevNode.data) > 0) {
             prevNode.right = newNode;
-            currNode = prevNode.right;
+        } else if (newNode.data.compareTo(prevNode.data) < 0){
+            prevNode.left = newNode;
         }
-        root = correctPriority(null, data, root)        
-
+        return newNode;
     }
-
-    private Node<T> correctPriority(Node<T> pNode, T data, Node<T> cNode){
-        if (data.equals(cNode.data)) {
-            return cNode;
-        }
-        if (data.compareTo(cNode.data) < 0) {
-            cNode = correctPriority(cNode, data, cNode.left);
-            if (cNode.left.priority > cNode.priority) {
-                pNode.left = cNode.right;
-                cNode.right = pNode;
-                return cNode;    
-                //rotation 
-                //return cNode
-            } else {
-                return pNode;
-            }
-        }
-        if (data.compareTo(cNode.data) > 0) {
-            cNode = correctPriority(cNode, data, cNode.right);
-            if (cNode.right.priority > cNode.priority) {
-                pNode.right = cNode.left;
-                cNode.left = pNode;
-                return cNode;    
-                //rotation 
-                //return cNode
-            } else {
-                return pNode;
-            }
-        }
-        return pNode;
-    }
-
     public Node<T> remove(T data) {
         return null;
     }
