@@ -1,5 +1,3 @@
-import javax.imageio.ImageTypeSpecifier;
-
 public class Treap<T extends Comparable<T>> {
     public Node<T> root = null;
 
@@ -42,14 +40,50 @@ public class Treap<T extends Comparable<T>> {
             root = newNode;
             return;
         }
-        binIns(newNode);
         
         //Insert as Binary Tree
-
+        binIns(newNode);
+        if (data.compareTo(root.data) > 0) {
+            root = doRotations(root, root.right, data);
+        }
+        if (data.compareTo(root.data) < 0) {
+            root = doRotations(root, root.left, data);
+        }
     }
-    private Node<T> doRotations(Node<T> currNode){
+    private Node<T> doRotations(Node<T> parentNode, Node<T> childNode, T data){
+        if (parentNode == null) {
+            return parentNode;
+        }
+        //System.out.println("PARENT\t" + parentNode.toString());
+        //System.out.println("CHILD\t" + childNode.toString());
+        //System.out.println("NO NULLS");
         
-        return currNode;
+        if (data.compareTo(childNode.data) > 0) {
+            //System.out.println("LEFT");
+            childNode = doRotations(childNode, childNode.right, data);
+        }
+        if (data.compareTo(childNode.data) < 0) {
+            //System.out.println("RIGHT");
+            childNode = doRotations(childNode, childNode.left, data);
+        }
+        if (childNode.data.compareTo(parentNode.data) < 0) {
+            if (childNode.priority >= parentNode.priority) {
+                parentNode.left = childNode.right;
+                childNode.right = parentNode;
+                return childNode;
+            }
+        }
+        if (childNode.data.compareTo(parentNode.data) > 0) {
+            if (childNode.priority >= parentNode.priority) {
+                parentNode.right = childNode.left;
+                childNode.left = parentNode;
+                return childNode;
+            }
+        }
+        
+        
+
+        return parentNode;
     }
     private Node<T> binIns(Node<T> newNode){
         Node<T> prevNode = null, currNode = root;
@@ -60,7 +94,8 @@ public class Treap<T extends Comparable<T>> {
             } else if (newNode.data.compareTo(currNode.data) < 0){
                 currNode = currNode.left;
             } else if(newNode.data.equals(currNode.data)){
-                throw DatabaseException.duplicateInsert(newNode.data);
+                System.out.println("THROW EXCEPTION HERE");
+                //throw DatabaseException.duplicateInsert(newNode.data);
             }
         }
         if (newNode.data.compareTo(prevNode.data) > 0) {
