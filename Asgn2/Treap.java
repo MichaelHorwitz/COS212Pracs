@@ -193,11 +193,34 @@ public class Treap<T extends Comparable<T>> {
         if (retNode == null) {
             return null;
         }
+        retNode.priority++;
         root = recAccess(root, data);
         return retNode;
     }
     private Node<T> recAccess(Node<T> currNode, T data){
-        
+        if (currNode.data.equals(data)) {
+            return currNode;
+        }
+        Node<T> parent = currNode;
+        Node<T> child;
+        if (data.compareTo(parent.data) < 0) {
+            parent.left = recAccess(parent.left, data);
+            child = parent.left;
+            if (child.priority >= parent.priority) {
+                parent.left = child.right;
+                child.right = parent;
+                return child;
+            }
+        } else if (data.compareTo(parent.data) > 0){
+            parent.right = recAccess(parent.right, data);
+            child = parent.right;
+            if (child.priority >= parent.priority) {
+                parent.right = child.left;
+                child.left = parent;
+                return child;
+            }
+        }
+
         return currNode;
     }
 }
