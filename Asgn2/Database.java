@@ -36,7 +36,7 @@ public class Database {
             }
         }
         int i = 0;
-        while (i < database.length && database[i] != null) {
+        while (i < database.length && database[i][0] != null) {
             i++;
         }
         if (i >= database.length) {
@@ -102,7 +102,7 @@ public class Database {
     }
 
     public String[][] removeAllWhere(String col, String data) throws DatabaseException {
-        String[][] tempRemovedRows = new String[database.length][];
+        String[][] tempRemovedRows = new String[database.length + 1][];
         int numRemoved = 0;
         boolean isNull = false;
         while (!isNull) {

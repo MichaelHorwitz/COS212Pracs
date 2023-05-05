@@ -24,7 +24,7 @@ public class Node<T extends Comparable<T>> {
         this.data = data;
         left = null;
         right = null;
-        priority = getPriority();
+        //priority = getPriority();
     }
 
     public T getData() {
