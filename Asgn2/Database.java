@@ -95,7 +95,7 @@ public class Database {
                 Cell temp = new Cell();
                 temp.value = data;
                 temp.databaseRow = rowIndex;
-                indexes[i].remove(removedCell);
+                indexes[i].remove(temp);
             }
         }
         return removedRow;
@@ -107,7 +107,7 @@ public class Database {
         boolean isNull = false;
         while (!isNull) {
            String[] tempRow = removeFirstWhere(col, data);
-           if (tempRow != null) {
+           if (tempRow.length != 0) {
             tempRemovedRows[numRemoved] = tempRow;
             numRemoved++;
            } else {
@@ -227,8 +227,8 @@ public class Database {
                 tempCell.value = updateCondition;
                 indexes[colIndex].insert(tempCell);
                 database[tempCell.databaseRow][colIndex] = updateCondition;
+                return database[tempCell.databaseRow];
             }
-            return database[tempCell.databaseRow];
         }
         return new String[0];
     }
@@ -249,7 +249,7 @@ public class Database {
         boolean isNull = false;
         while (!isNull) {
             String[] temp = updateFirstWhere(col, updateCondition, data);
-            if(temp == null){
+            if(temp.length == 0){
                 isNull = true;
             } else {
                 tempStr[numUpdated] = temp;
