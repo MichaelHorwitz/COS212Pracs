@@ -146,31 +146,58 @@ public class Treap<T extends Comparable<T>> {
             }
         }
         if (currNode.data.equals(data)) {
-            if ((currNode.right != null && currNode.left == null) || currNode.right.priority >= currNode.left.priority) {
-                Node<T> parent = currNode;
-                Node<T> child = currNode.right;
-                
+            if (currNode.right != null && (currNode.left == null || currNode.right.priority >= currNode.left.priority)) {
+                Node<T> parent = currNode, child = currNode.right;
+                //Rotate right child about parent
+                parent.right = child.left;
+                parent = recRemove(parent, data);
+                child.left = parent;
+                return child;
+                /*
+                Node<T> currNodeRL = currNode.right.left;
+                currNode.right.left = currNode;
+                currNode.right = currNodeRL;
                 currNode = recRemove(currNode, data);
                 return currNode.right;
+                */
             } else {
-                Node<T> currNodeLR = currNode.left.right;
-                currNode.left.right = currNode;
-                currNode.left = currNodeLR;
-                currNode = recRemove(currNode, data);
-                return currNode.left;
+                Node<T> parent = currNode, child = currNode.left;
+                //Rotate left child about parent
+                parent.left = child.right;
+                parent = recRemove(parent, data);
+                child.right = parent;
+                return child;
+                // Node<T> currNodeLR = currNode.left.right;
+                // currNode.left.right = currNode;
+                // currNode.left = currNodeLR;
+                // currNode = recRemove(currNode, data);
+                // return currNode.left;
             }
         } else {
             if (data.compareTo(currNode.data) < 0) {
-                return recRemove(currNode.left, data);
+                currNode.left = recRemove(currNode.left, data);
+                return currNode;
             }
             if (data.compareTo(currNode.data) > 0) {
-                return recRemove(currNode.right, data);
+                currNode.right = recRemove(currNode.right, data);
+                return currNode;
             }
         }
         return null;
     }
     public Node<T> access(T data) {
-        return null;
+        if (root == null) {
+            return null;
+        }
+        Node<T> retNode = recFind(root, data);
+        if (retNode == null) {
+            return null;
+        }
+        root = recAccess(root, data);
+        return retNode;
     }
-
+    private Node<T> recAccess(Node<T> currNode, T data){
+        
+        return currNode;
+    }
 }
