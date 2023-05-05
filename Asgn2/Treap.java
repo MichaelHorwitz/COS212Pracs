@@ -1,5 +1,3 @@
-import javax.xml.parsers.ParserConfigurationException;
-
 public class Treap<T extends Comparable<T>> {
     public Node<T> root = null;
 
@@ -112,10 +110,65 @@ public class Treap<T extends Comparable<T>> {
         return newNode;
     }
     public Node<T> remove(T data) {
-        
+        if (root == null) {
+            return null;
+        }
+        Node<T> retNode = recFind(root, data);
+        if (retNode == null) {
+            return null;
+        }
+        root = recRemove(root, data);
+        return retNode;
+    }
+    private Node<T> recFind(Node<T> currNode, T data){
+        if (currNode == null) {
+            return null;
+        }
+        if (data.compareTo(currNode.data) < 0) {
+            return recFind(currNode.left, data);
+        }
+        if (data.compareTo(currNode.data) > 0) {
+            return recFind(currNode.right, data);
+        }
         return null;
     }
-
+    private Node<T> recRemove(Node<T> currNode, T data){
+        if (currNode == null) {
+            return null;
+        }
+        if (currNode.left == null && currNode.right == null) {
+            return null;
+        }
+        if (currNode.left == null) {
+            return currNode.right;
+        }
+        if (currNode.right == null) {
+            return currNode.left;
+        }
+        if (currNode.data.equals(data)) {
+            if (currNode.right.priority >= currNode.priority) {
+                Node<T> currNodeRL = currNode.right.left;
+                currNode.right.left = currNode;
+                currNode.right = currNodeRL;
+                currNode = recRemove(currNode, data);
+                return currNode.right;
+            } else if (currNode.left.priority > currNode.priority) {
+                Node<T> currNodeLR = currNode.left.right;
+                currNode.left.right = currNode;
+                currNode.left = currNodeLR;
+                currNode = recRemove(currNode, data);
+                return currNode.left;
+            }
+        } else {
+            if (data.compareTo(currNode.data) < 0) {
+                return recRemove(currNode.left, data);
+            }
+            if (data.compareTo(currNode.data) > 0) {
+                return recRemove(currNode.right, data);
+            }
+        }
+        return null;
+    }
     public Node<T> access(T data) {
         return null;
     }
