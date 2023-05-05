@@ -117,12 +117,16 @@ public class Treap<T extends Comparable<T>> {
         if (retNode == null) {
             return null;
         }
+        
         root = recRemove(root, data);
         return retNode;
     }
     private Node<T> recFind(Node<T> currNode, T data){
         if (currNode == null) {
             return null;
+        }
+        if (data.compareTo(currNode.data) == 0) {
+            return currNode;
         }
         if (data.compareTo(currNode.data) < 0) {
             return recFind(currNode.left, data);
@@ -136,23 +140,19 @@ public class Treap<T extends Comparable<T>> {
         if (currNode == null) {
             return null;
         }
-        if (currNode.left == null && currNode.right == null) {
-            return null;
-        }
-        if (currNode.left == null) {
-            return currNode.right;
-        }
-        if (currNode.right == null) {
-            return currNode.left;
+        if (currNode.data.equals(data)) {
+            if (currNode.left == null && currNode.right == null) {
+                return null;
+            }
         }
         if (currNode.data.equals(data)) {
-            if (currNode.right.priority >= currNode.priority) {
-                Node<T> currNodeRL = currNode.right.left;
-                currNode.right.left = currNode;
-                currNode.right = currNodeRL;
+            if ((currNode.right != null && currNode.left == null) || currNode.right.priority >= currNode.left.priority) {
+                Node<T> parent = currNode;
+                Node<T> child = currNode.right;
+                
                 currNode = recRemove(currNode, data);
                 return currNode.right;
-            } else if (currNode.left.priority > currNode.priority) {
+            } else {
                 Node<T> currNodeLR = currNode.left.right;
                 currNode.left.right = currNode;
                 currNode.left = currNodeLR;
