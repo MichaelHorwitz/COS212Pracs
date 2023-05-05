@@ -7,7 +7,7 @@ public class Main {
     }
     public static void testTreapIns(){
         Treap<String> treap = new Treap<String>();
-        String[] strAdd = {"A", "Z", "F", "M"};//, "S", "D", "P", "X", "N", "E"};
+        String[] strAdd = {"A", "Z", "F", "M", "S", "D", "P", "X", "N", "E"};
         try {
             System.out.println(treap.toString());
             for (String string : strAdd) {

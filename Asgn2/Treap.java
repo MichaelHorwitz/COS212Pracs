@@ -1,3 +1,5 @@
+import javax.xml.parsers.ParserConfigurationException;
+
 public class Treap<T extends Comparable<T>> {
     public Node<T> root = null;
 
@@ -59,12 +61,15 @@ public class Treap<T extends Comparable<T>> {
         //System.out.println("NO NULLS");
         
         if (data.compareTo(childNode.data) > 0) {
-            //System.out.println("LEFT");
             childNode = doRotations(childNode, childNode.right, data);
         }
         if (data.compareTo(childNode.data) < 0) {
-            //System.out.println("RIGHT");
             childNode = doRotations(childNode, childNode.left, data);
+        }
+        if (childNode.data.compareTo(parentNode.data) < 0) {
+            parentNode.left = childNode;
+        } else if (childNode.data.compareTo(parentNode.data) > 0){
+            parentNode.right = childNode;
         }
         if (childNode.data.compareTo(parentNode.data) < 0) {
             if (childNode.priority >= parentNode.priority) {
