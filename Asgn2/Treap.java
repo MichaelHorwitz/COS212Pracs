@@ -42,7 +42,9 @@ public class Treap<T extends Comparable<T>> {
             root = newNode;
             return;
         }
-        
+        if (data.equals(root.data)) {
+            throw DatabaseException.duplicateInsert(data);
+        }
         //Insert as Binary Tree
         binIns(newNode);
         if (data.compareTo(root.data) > 0) {
@@ -59,7 +61,6 @@ public class Treap<T extends Comparable<T>> {
         //System.out.println("PARENT\t" + parentNode.toString());
         //System.out.println("CHILD\t" + childNode.toString());
         //System.out.println("NO NULLS");
-        
         if (data.compareTo(childNode.data) > 0) {
             childNode = doRotations(childNode, childNode.right, data);
         }
@@ -90,7 +91,7 @@ public class Treap<T extends Comparable<T>> {
 
         return parentNode;
     }
-    private Node<T> binIns(Node<T> newNode){
+    private Node<T> binIns(Node<T> newNode) throws DatabaseException{
         Node<T> prevNode = null, currNode = root;
         while (currNode != null) {
             prevNode = currNode;
@@ -99,8 +100,8 @@ public class Treap<T extends Comparable<T>> {
             } else if (newNode.data.compareTo(currNode.data) < 0){
                 currNode = currNode.left;
             } else if(newNode.data.equals(currNode.data)){
-                System.out.println("THROW EXCEPTION HERE");
-                //throw DatabaseException.duplicateInsert(newNode.data);
+                //System.out.println("THROW EXCEPTION HERE");
+                throw DatabaseException.duplicateInsert(newNode.data);
             }
         }
         if (newNode.data.compareTo(prevNode.data) > 0) {
@@ -111,6 +112,7 @@ public class Treap<T extends Comparable<T>> {
         return newNode;
     }
     public Node<T> remove(T data) {
+        
         return null;
     }
 
