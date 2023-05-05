@@ -59,7 +59,7 @@ public class Database {
         cellToRemove.databaseRow = -1;
         int colIndex = -1;
         for (int i = 0; colIndex < 0 && i < columnNames.length; i++) {
-            if (columnNames[i].equals(col)) {
+            if (columnNames[i] != null && columnNames[i].equals(col)) {
                 colIndex = i;
             }
         }
@@ -69,14 +69,17 @@ public class Database {
         int rowIndex = -1;
         Cell removedCell = null;
         if (indexes[colIndex] != null) {
-            removedCell = indexes[colIndex].remove(cellToRemove).data;
+            Node<Cell> tempNode = indexes[colIndex].remove(cellToRemove);
+            if (tempNode != null) {
+                removedCell = tempNode.data;
+            }
             if (removedCell == null) {
                 return new String[0];
             }
             rowIndex = removedCell.databaseRow;
         } else {
             for (int i = 0; rowIndex < 0 && i < database.length; i++) {
-                if (database[i][colIndex].equals(data)) {
+                if (database[i][colIndex] != null && database[i][colIndex].equals(data)) {
                     rowIndex = i;
                 }
             }
@@ -134,7 +137,10 @@ public class Database {
         cellToFind.databaseRow = -1;
         Cell foundCell = null;
         if (indexes[colIndex] != null) {
-            foundCell = indexes[colIndex].access(cellToFind).data;
+            Node<Cell> tempNode = indexes[colIndex].access(cellToFind);
+            if (tempNode != null) {
+                foundCell = tempNode.data;
+            }
             if (foundCell == null) {
                 return new String[0];
             }
@@ -145,7 +151,7 @@ public class Database {
             // rowIndex = removedCell.databaseRow;
         } else {
             for (int i = 0; rowIndex < 0 && i < database.length; i++) {
-                if (database[i][colIndex].equals(data)) {
+                if (database[i][colIndex] != null && database[i][colIndex].equals(data)) {
                     rowIndex = i;
                 }
             }
@@ -172,14 +178,17 @@ public class Database {
         cellToFind.value = data;
         cellToFind.databaseRow = -1;
         if (indexes[colIndex] != null) {
-            //NULL RETURN 
-            Cell tempCell = indexes[colIndex].access(cellToFind).data;
+            Node<Cell> tempNode = indexes[colIndex].access(cellToFind);
+            Cell tempCell = null;
+            if (tempNode != null) {
+                tempCell = tempNode.data;
+            }
             if (tempCell == null) {
                 return new String[0][];
             }
         }
         for (int i = 0; i < database.length; i++) {
-            if (database[i][colIndex].equals(data)) {
+            if (database[i][colIndex] != null && database[i][colIndex].equals(data)) {
                 tempFoundRows[numFound] = database[i];
                 numFound++;
             }
@@ -203,7 +212,7 @@ public class Database {
         }
         if (indexes[colIndex] == null) {
             for (int i = 0; i < database.length; i++) {
-                if (database[i][colIndex].equals(data)) {
+                if (database[i][colIndex] != null && database[i][colIndex].equals(data)) {
                     database[i][colIndex] = updateCondition;
                     return database[i];
                 }
@@ -212,10 +221,13 @@ public class Database {
             Cell tempCell = new Cell();
             tempCell.value = data;
             tempCell.databaseRow = -1;
-            tempCell = indexes[colIndex].remove(tempCell).data;
-            tempCell.value = updateCondition;
-            indexes[colIndex].insert(tempCell);
-            database[tempCell.databaseRow][colIndex] = updateCondition;
+            Node<Cell> tempNode = indexes[colIndex].remove(tempCell);
+            if (tempNode != null) {
+                tempCell = tempNode.data;
+                tempCell.value = updateCondition;
+                indexes[colIndex].insert(tempCell);
+                database[tempCell.databaseRow][colIndex] = updateCondition;
+            }
             return database[tempCell.databaseRow];
         }
         return new String[0];
