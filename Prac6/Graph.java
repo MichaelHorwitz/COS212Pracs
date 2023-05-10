@@ -18,8 +18,9 @@ public class Graph {
             return;
         }
         Scanner sc;
-        sc = new Scanner(fileName);
-        numVertices = sc.nextInt();
+        sc = new Scanner(new File(fileName));
+        String line = sc.next();
+        numVertices = Integer.valueOf(sc.next());
         String currLine = sc.nextLine();
         vertices = currLine.split(" ");
         adjacencyMatrix = new Integer[numVertices][numVertices];
@@ -32,17 +33,20 @@ public class Graph {
             }
             lineNum++;
         }
-
     }
 
     public void insertVertex(String name) {
         String[] newVertices = new String[numVertices + 1];
+        Integer[][] newAdjMatrix = new Integer[numVertices][numVertices];
         newVertices[numVertices] = name;
         for (int i = 0; i < numVertices; i++) {
             newVertices[i] = vertices[i];
+            for (int j = 0; j < numVertices; j++) {
+                newAdjMatrix[i][j] = adjacencyMatrix[i][j];
+            }
+            newAdjMatrix[i][numVertices] = 0;
         }
         vertices[numVertices] = name;
-        
         numVertices++;
     }
 
@@ -57,7 +61,27 @@ public class Graph {
 
     @Override
     public String toString() {
-        return "";
+        if (numVertices == 0) {
+            return "(0,0)";
+        }
+        String ret = "(";
+        ret += numVertices;
+        ret += ",";
+        ret += numEdges;
+        ret += ")";
+        for (String currVer : vertices) {
+            ret += "\t";
+            ret += currVer; 
+        }
+        for (int i = 0; i < numVertices; i++) {
+            ret += "\n";
+            ret += vertices[i];
+            for (int j = 0; j < numVertices; j++) {
+                ret += "\t" + adjacencyMatrix[i][j];
+            }
+        }
+
+        return ret;
     }
 
     public String depthFirstTraversal() {
