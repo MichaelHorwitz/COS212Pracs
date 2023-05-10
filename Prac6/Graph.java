@@ -49,7 +49,7 @@ public class Graph {
 
     public void insertVertex(String name) {
         String[] newVertices = new String[numVertices + 1];
-        Integer[][] newAdjMatrix = new Integer[numVertices][numVertices];
+        Integer[][] newAdjMatrix = new Integer[numVertices + 1][numVertices + 1];
         newVertices[numVertices] = name;
         for (int i = 0; i < numVertices; i++) {
             newVertices[i] = vertices[i];
@@ -58,14 +58,69 @@ public class Graph {
             }
             newAdjMatrix[i][numVertices] = 0;
         }
-        vertices[numVertices] = name;
+        for (int i = 0; i < numVertices; i++) {
+            newAdjMatrix[numVertices][i] = 0;
+        }
+        newAdjMatrix[numVertices][numVertices] = 0;
+        newVertices[numVertices] = name;
         numVertices++;
+        vertices = newVertices;
+        adjacencyMatrix = newAdjMatrix;
     }
 
     public void insertEdge(String start, String end, int weight) {
+        if (weight == 0) {
+            return;
+        }
+        int startIndex = -1, endIndex = -1;
+        for (int i = 0; i < numVertices; i++) {
+            if (vertices[i].equals(start)) {
+                startIndex = i;
+            } if(vertices[i].equals(end)){
+                endIndex = i;
+            }
+        }
+        if (startIndex == -1 || endIndex == -1) {
+            return;
+        }
+        adjacencyMatrix[startIndex][endIndex] = weight;
     }
 
     public void removeVertex(String name) {
+        int index = -1;
+        for (int i = 0; i < numVertices; i++) {
+            if (vertices[i].equals(name)) {
+                index = i;
+            }
+        }
+        if (index == -1) {
+            return;
+        }
+        for (int i = index; i < numVertices - 1; i++) {
+            vertices[i] = vertices[i+1];
+        }
+        while (index < numVertices-1) {
+            for (int i = 0; i < numVertices; i++) {
+                //System.out.println("i: " + i);
+                adjacencyMatrix[i][index] = adjacencyMatrix[i][index + 1];
+            }
+ 
+            for (int i = 0; i < numVertices; i++) {
+                adjacencyMatrix[index][i] = adjacencyMatrix[index + 1][i];
+            }
+            index++;
+        }
+        numVertices--;
+        String[] newVertices = new String[numVertices];
+        Integer[][] newAdjMatrix = new Integer[numVertices][numVertices];
+        for (int i = 0; i < numVertices; i++) {
+            newVertices[i] = vertices[i];
+            for (int j = 0; j < numVertices; j++) {
+                newAdjMatrix[i][j] = adjacencyMatrix[i][j];
+            }
+        }
+        vertices = newVertices;
+        adjacencyMatrix = newAdjMatrix;
     }
 
     public void removeEdge(String start, String end) {
