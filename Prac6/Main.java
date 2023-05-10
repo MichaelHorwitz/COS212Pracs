@@ -4,7 +4,7 @@ public class Main {
         //givenTest();
     }
     static void testConst(){
-        Graph g = new Graph("graph.txt;");
+        Graph g = new Graph("Prac6\\graph.txt");
         System.out.println(g);
         
     }

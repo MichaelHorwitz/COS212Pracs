@@ -18,9 +18,21 @@ public class Graph {
             return;
         }
         Scanner sc;
-        sc = new Scanner(new File(fileName));
+        File file;
+        try {
+            file = new File(fileName);
+            System.out.println(file.getCanonicalPath());
+            sc = new Scanner(file);
+        } catch (Exception e) {
+            sc = null;
+            e.printStackTrace();
+            return;
+        }
         String line = sc.next();
-        numVertices = Integer.valueOf(sc.next());
+        System.out.println(line);
+        //numVertices = sc.nextInt();
+        numVertices = Integer.valueOf(line);
+        sc.nextLine();
         String currLine = sc.nextLine();
         vertices = currLine.split(" ");
         adjacencyMatrix = new Integer[numVertices][numVertices];
