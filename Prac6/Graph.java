@@ -222,6 +222,7 @@ public class Graph {
         return -1;
     }
     public String breadthFirstTraversal() {
+        edgesVisited = new int[numVertices*numVertices][2];
         visited = new int[numVertices];
         for (int i = 0; i < numVertices; i++) {
             visited[i] = 0;
@@ -237,9 +238,9 @@ public class Graph {
                 stillRun = false;
             } else {
                 visited[vertix] = countVisited++;
-                queue[startQ] = vertix;
-                startQ++;
-                while (startQ != endQ) {
+                queue[endQ] = vertix;
+                endQ++;
+                while (startQ <= endQ) {
                     vertix = queue[startQ];
                     for (int i = startQ; i < endQ - 1; i++) {
                         queue[i] = queue[i+1];
@@ -253,6 +254,7 @@ public class Graph {
                                 endQ++;
                                 edgesVisited[countEdgesVisited][0] = vertix;
                                 edgesVisited[countEdgesVisited][1] = i;
+                                countEdgesVisited++;
                             }
                         }
                     }

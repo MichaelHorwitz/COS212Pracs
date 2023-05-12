@@ -5,7 +5,16 @@ public class Main {
         //testInsEdge();
         //testRemVec();
         //givenTest();
-        testDFT();
+        //testDFT();
+        testBFT();
+    }
+    static void testBFT(){
+        Graph g = new Graph("Prac6\\graph.txt");
+        System.out.println(g);
+        System.out.println(g.breadthFirstTraversal());
+        
+        g = new Graph("");
+        System.out.println(g.breadthFirstTraversal());
     }
     static void testDFT(){
         Graph g = new Graph("Prac6\\graph.txt");
