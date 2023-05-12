@@ -7,7 +7,20 @@ public class Main {
         //givenTest();
         //testDFT();
         //testBFT();
-        testAllToAll();
+        //testAllToAll();
+        //testShortest();
+        testCycle();
+    }
+    static void testCycle(){
+
+        Graph g = new Graph("Prac6\\graph.txt");
+        System.out.println(g);
+        System.out.println(g.cycleDetection());
+    }
+    static void testShortest(){
+        Graph g = new Graph("Prac6\\graph.txt");
+        System.out.println(g);
+        System.out.println(g.shortestPath("A", "R"));
     }
     static void testAllToAll(){
         Graph g = new Graph("Prac6\\graph.txt");

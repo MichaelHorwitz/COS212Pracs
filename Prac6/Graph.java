@@ -1,7 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Graph {
@@ -241,7 +239,7 @@ public class Graph {
                 visited[vertix] = countVisited++;
                 queue[endQ] = vertix;
                 endQ++;
-                while (startQ <= endQ) {
+                while (startQ < endQ) {
                     vertix = queue[startQ];
                     for (int i = startQ; i < endQ - 1; i++) {
                         queue[i] = queue[i+1];
@@ -309,8 +307,8 @@ public class Graph {
         for (int i = 0; i < numVertices; i++) {
             for (int j = 0; j < numVertices; j++) {
                 for (int k = 0; k < numVertices; k++) {
-                    if (minEdges[i][j] > minEdges[j][i] + minEdges[i][k]) {
-                        minEdges[i][j] = minEdges[j][i] + minEdges[i][k];
+                    if (minEdges[j][k] > minEdges[j][i] + minEdges[i][k]) {
+                        minEdges[j][k] = minEdges[j][i] + minEdges[i][k];
                     }
                 }
             }
@@ -319,15 +317,142 @@ public class Graph {
     }
 
     public Double shortestPath(String start, String end) {
-        return null;
-
+        int startIndex = findIndex(start);
+        int endIndex = findIndex(end);
+        if (startIndex == -1 || endIndex == -1) {
+            return null;
+        }
+        Double[] vertexDist = new Double[numVertices];
+        Integer[] vertexPrev = new Integer[numVertices];
+        for (int i = 0; i < numVertices; i++) {
+            vertexDist[i] = Double.POSITIVE_INFINITY;
+            vertexPrev[i] = null;
+        }
+        vertexDist[startIndex] = 0.0;
+        for (int i = 1; i < numVertices; ++i) {
+            for (int j = 0; j < numVertices; j++) {
+                for (int k = 0; k < numVertices; k++) {
+                    if (adjacencyMatrix[j][k] != 0) {
+                        int u = j;
+                        int v = k;
+                        int weight = adjacencyMatrix[j][k];
+                        if (vertexDist[u] != Double.POSITIVE_INFINITY && vertexDist[u] + weight < vertexDist[v])
+                            vertexDist[v] = vertexDist[u] + weight;
+                    }
+                } 
+            }
+        }
+        return vertexDist[endIndex];
     }
 
     public boolean cycleDetection() {
+        Double[][] weight = new Double[numVertices][numVertices];
+        for (int i = 0; i < numVertices; i++) {
+            for (int j = 0; j < numVertices; j++) {
+                weight[i][j] = Double.POSITIVE_INFINITY;
+            }
+        }
+        for (int i = 0; i < numVertices; i++) {
+            for (int j = 0; j < numVertices; j++) {
+                if (adjacencyMatrix[i][j] != 0) {
+                    weight[i][j] = (double)adjacencyMatrix[i][j];
+                }
+            }
+        }
+        for (int i = 0; i < numVertices; i++) {
+            for (int j = 0; j < numVertices; j++) {
+                for (int k = 0; k < numVertices; k++) {
+                    if (weight[j][k] > weight[j][i] + weight[i][k]) {
+                        weight[j][k] = weight[j][i] + weight[i][k];
+                        if (j == k) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
         return false;
     }
 
+    String strongConnectedStr;
+    Integer[] predVert;
+    Integer[] num;
+    int strongConnectedI;
     public String stronglyConnectedComponents() {
+        /*
+        predVert = new Integer[numVertices];
+        num = new Integer[numVertices];
+        strongConnectedI = 1;
+        strongConnectedStr = "";
+        for (int i = 0; i < numVertices; i++) {
+            num[i] = 0;
+        }
+        boolean stillRun = true;
+        while (stillRun) {
+            int v = -1;
+            stillRun = false;
+            for (int i = 0; i < numVertices; i++) {
+                if (num[v] == 0) {
+                    stillRun = true;
+                    v = i;
+                }
+            }
+            if (stillRun) {
+                strongDFS(v);
+            }
+        }
+        return strongConnectedStr;
+        */
         return "";
     }
+    private void strongDFS(int v){
+        //pred(v) = num(v) = i++
+        predVert[v] = strongConnectedI;
+        num[v] = strongConnectedI++;
+        //push(v)
+        Integer[] stack = new Integer[numVertices];
+        Integer stackNo = 0;
+        stack[stackNo] = v;
+        stackNo++;
+        //for all vertices u adjacent to v
+        for (int u = 0; u < numVertices; u++) {
+            if (adjacencyMatrix[v][u] != 0) {
+                //if num(u) is 0
+                if (num[u] == 0) {
+                    //strongDFS(u)
+                    strongDFS(u);
+                    // pred(v) = min(pred(v),pred(u))
+                    if (predVert[v] > predVert[u]) {
+                        predVert[v] = predVert[u];
+                    // else if num(u) < num(v) and u is on stack
+                    } else if (num[u] < num[v] && stack[stackNo-1] == u) {
+                        // pred(v) = min(pred(v),num(u))                
+                        if (predVert[v] > num[v]) {
+                            predVert[v] = num[u];
+                        }
+                    }
+                    
+                }
+            }
+            
+        }
+        // if pred(v) == num(v)
+        if (predVert[v] == num[v]) {
+            // w = pop()
+            int w = stack[stackNo];
+            stackNo--;
+            // while w ≠ v
+            while (w != v) {
+                // output w
+                strongConnectedStr += w;
+                // w = pop()
+                w = stack[stackNo];
+                stackNo--;
+            }
+            // output w
+            strongConnectedStr += w;
+        }
+    }
+
+
 }
