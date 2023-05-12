@@ -6,7 +6,22 @@ public class Main {
         //testRemVec();
         //givenTest();
         //testDFT();
-        testBFT();
+        //testBFT();
+        testAllToAll();
+    }
+    static void testAllToAll(){
+        Graph g = new Graph("Prac6\\graph.txt");
+        System.out.println(g);
+        Double[][] arr = g.shortestPaths();
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr.length; j++) {
+                System.out.print(arr[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        g = new Graph("");
+        System.out.println(g.breadthFirstTraversal());
     }
     static void testBFT(){
         Graph g = new Graph("Prac6\\graph.txt");

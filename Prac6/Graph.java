@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Graph {
@@ -289,7 +290,32 @@ public class Graph {
     }
 
     public Double[][] shortestPaths() {
-        return null;
+        Double[][] minEdges = new Double[numVertices][numVertices];
+        for (int i = 0; i < numVertices; i++) {
+            for (int j = 0; j < numVertices; j++) {
+                minEdges[i][j] = Double.POSITIVE_INFINITY;
+            }
+        }
+        for (int i = 0; i < numVertices; i++) {
+            minEdges[i][i] = 0.0;
+        }
+        for (int i = 0; i < numVertices; i++) {
+            for (int j = 0; j < numVertices; j++) {
+                if (adjacencyMatrix[i][j] != 0) {
+                    minEdges[i][j] = (double)adjacencyMatrix[i][j];
+                }
+            }
+        }
+        for (int i = 0; i < numVertices; i++) {
+            for (int j = 0; j < numVertices; j++) {
+                for (int k = 0; k < numVertices; k++) {
+                    if (minEdges[i][j] > minEdges[j][i] + minEdges[i][k]) {
+                        minEdges[i][j] = minEdges[j][i] + minEdges[i][k];
+                    }
+                }
+            }
+        }
+        return minEdges;
     }
 
     public Double shortestPath(String start, String end) {
