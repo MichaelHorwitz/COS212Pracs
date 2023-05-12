@@ -222,7 +222,68 @@ public class Graph {
         return -1;
     }
     public String breadthFirstTraversal() {
-        return "";
+        visited = new int[numVertices];
+        for (int i = 0; i < numVertices; i++) {
+            visited[i] = 0;
+        }
+        int startQ = 0, endQ = 0;
+        countVisited = 1;
+        int[] queue = new int[numVertices]; 
+        boolean stillRun = true;
+        while (stillRun) {
+            
+            int vertix = arrContains(visited, 0);
+            if (vertix == -1) {
+                stillRun = false;
+            } else {
+                visited[vertix] = countVisited++;
+                queue[startQ] = vertix;
+                startQ++;
+                while (startQ != endQ) {
+                    vertix = queue[startQ];
+                    for (int i = startQ; i < endQ - 1; i++) {
+                        queue[i] = queue[i+1];
+                    }
+                    endQ--;
+                    for (int i = 0; i < numVertices; i++) {
+                        if (adjacencyMatrix[vertix][i] != 0) {
+                            if (visited[i] == 0) {
+                                visited[i] = countVisited++;
+                                queue[endQ] = i;
+                                endQ++;
+                                edgesVisited[countEdgesVisited][0] = vertix;
+                                edgesVisited[countEdgesVisited][1] = i;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        
+        /*
+        for all vertices u
+            num(u) = 0; // visited #
+        edges = null; // path
+        i = 1;
+        while there is a vertex v such that num(v) is 0
+            num(v) = i++; 
+            enqueue(v); // add to queue
+            while queue is not empty
+                v = dequeue(); // visit
+                for all vertices u adjacent to v
+                    if num(u) is 0 // unvisited
+                        num(u) = i++; 
+                        enqueue(u);
+                        attach edge(vu) to edges;
+        output edges;
+*/
+    String ret = "";
+
+    for (int i = 0; i < countEdgesVisited; i++) {
+        ret += "\n[" + vertices[edgesVisited[i][0]] + "][" + vertices[edgesVisited[i][1]] + "]";
+    }
+    return ret;
     }
 
     public Double[][] shortestPaths() {
