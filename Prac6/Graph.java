@@ -124,6 +124,13 @@ public class Graph {
     }
 
     public void removeEdge(String start, String end) {
+        int startIndex = findIndex(start);
+        int endIndex = findIndex(end);
+        if (startIndex == -1 || endIndex == -1) {
+            return;
+        }
+        adjacencyMatrix[startIndex][endIndex] = 0;
+
     }
 
     @Override
@@ -151,10 +158,69 @@ public class Graph {
         return ret;
     }
 
-    public String depthFirstTraversal() {
-        return "";
+    private int findIndex(String vertex){
+        int index = -1;
+        for (int i = 0; i < numVertices; i++) {
+            if (vertices[i].equals(vertex)) {
+                index = i;
+                return index;
+            }
+        }
+        if (index == -1) {
+            return index;
+        }
+        return -2;
     }
+    private int countVisited;
+    private int[] visited;
+    private int [][] edgesVisited;
+    private int countEdgesVisited;
+    public String depthFirstTraversal() {
+        visited = new int[numVertices];
+        for (int i = 0; i < numVertices; i++) {
+            visited[i] = 0;
+        }
+        edgesVisited = new int[numVertices*numVertices][2];
+        countVisited = 1;
+        boolean stillRun = true;
+        countEdgesVisited = 0;
+        while (stillRun) {
+            int vertix = arrContains(visited, 0);
+            if (vertix == -1) {
+                stillRun = false;
+            } else {
+               DFS(vertix);
+            }
+        }
+        String ret = "";
 
+        for (int i = countEdgesVisited - 1; i >= 0; i--) {
+            ret += "\n[" + vertices[edgesVisited[i][0]] + "][" + vertices[edgesVisited[i][1]] + "]";
+        }
+        return ret;
+    }
+    private void DFS(int index){
+        visited[index] = countVisited++;
+        for (int i = 0; i < numVertices; i++) {
+            if (adjacencyMatrix[index][i] != 0) {
+                if (visited[i] == 0) {
+                    edgesVisited[countEdgesVisited][0] = index;
+                    edgesVisited[countEdgesVisited][1] = i;
+                    countEdgesVisited++;
+                    DFS(i);
+                }
+            }
+        }
+        return;
+    }
+    private int arrContains(int[] arr, int val){
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i]==val) {
+                return i;
+            }
+        }
+        return -1;
+    }
     public String breadthFirstTraversal() {
         return "";
     }

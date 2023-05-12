@@ -5,6 +5,14 @@ public class Main {
         //testInsEdge();
         //testRemVec();
         //givenTest();
+        testDFT();
+    }
+    static void testDFT(){
+        Graph g = new Graph("Prac6\\graph.txt");
+        System.out.println(g);
+        System.out.println(g.depthFirstTraversal());
+        g = new Graph("");
+        System.out.println(g.depthFirstTraversal());
     }
     static void testRemVec(){
         Graph g = new Graph("Prac6\\graph.txt");
