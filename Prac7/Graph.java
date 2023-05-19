@@ -39,6 +39,11 @@ public class Graph {
         if (!found) {
             return;
         }
+        for (int i = 0; i < edges.length; i++) {
+            if (edges[i].vertexA.compareTo(vToFind) == 0 || edges[i].vertexB.compareTo(vToFind) == 0) {
+                removeEdge(edges[i].vertexA.name, edges[i].vertexB.name);
+            }
+        }
         for (int i = indexAt; i < vertices.length - 1; i++) {
             vertices[i] = vertices[i+1];
         }
@@ -162,10 +167,17 @@ public class Graph {
     }
     public boolean cycle() {
         int[][] unionResult = unionFind();
-        if (unionResult[3][0] == 0) {
+        if (unionResult[3].length == 0) {
             return false;
-        } else {
-            return true;
+        }
+        try {
+            if (unionResult[3][0] == 0) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            return false;
         }
     }
 
@@ -204,6 +216,10 @@ public class Graph {
                 ret.removeEdge(a, b);
             }
         }
+        for (int i = 0; i < vertices.length; i++) {
+            ret.addVertex(vertices[i].name);
+        }
+
         return ret;
     }
 

@@ -1,5 +1,66 @@
 public class Main {
     public static void main(String[] args) {
+        //givenMain();
+        //test1();
+        test2();
+    }
+    private static void test2(){
+        Graph g = new Graph();
+        String[] verts = {"A", "B", "C", "D", "E"};
+        for (String v : verts) {
+            g.addVertex(v);
+        }
+        System.out.println(g);
+        String[] rem = {"C", "A", "E", "B", "D"};
+        for (String v : rem) {
+            g.removeVertex(v);
+            System.out.println("###########################################");
+            System.out.println(g);
+        }
+        for (String v : verts) {
+            g.addVertex(v);
+        }
+        String[][] edges = { 
+        { "A", "B", "2"  },
+        { "B", "C", "5" },
+        { "C", "A", "-2" },
+        { "D", "A", "-3" },
+        { "C", "D", "4" },
+        { "D", "B", "-7" } };
+        for (String[] e : edges) {
+            g.addEdge(e[0], e[1], Integer.valueOf(e[2]));
+        }
+        System.out.println(g);
+    }
+    private static void test1(){
+        Graph g = new Graph();
+        String[] verts = {"A", "B", "C", "D", "E"};
+        for (String v : verts) {
+            g.addVertex(v);
+        }
+        System.out.println(g);
+        String[] rem = {"C", "A", "E", "B", "D"};
+        for (String v : rem) {
+            g.removeVertex(v);
+            System.out.println("###########################################");
+            System.out.println(g);
+        }
+        for (String v : verts) {
+            g.addVertex(v);
+        }
+        String[][] edges = { 
+        { "A", "B", "2"  },
+        { "B", "C", "5" },
+        { "C", "A", "-2" },
+        { "D", "A", "-3" },
+        { "C", "D", "4" },
+        { "D", "B", "-7" } };
+        for (String[] e : edges) {
+            g.addEdge(e[0], e[1], Integer.valueOf(e[2]));
+        }
+        System.out.println(g);
+    }
+    private static void givenMain(){
         Graph g = new Graph();
 
         String[] verts = { "a", "b", "c", "d", "e", "f", "g", "h" };
