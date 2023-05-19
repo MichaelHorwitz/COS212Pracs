@@ -75,7 +75,26 @@ public class Graph {
     }
 
     public void removeEdge(String a, String b) {
-        
+        Edge edge = new Edge(new Vertex(a),new Vertex(b), 0);
+        boolean found = false;
+        int indexAt = 0;
+        for (int i = 0; i < edges.length; i++) {
+            if (edge.compareTo(edges[i]) == 0) {
+                found = true;
+                indexAt = i;
+            }
+        }
+        if (!found) {
+            return;
+        }
+        for (int i = indexAt; i < edges.length - 1; i++) {
+            edges[i] = edges[i + 1];
+        }
+        Edge[] newEdges = new Edge[edges.length - 1];
+        for (int i = 0; i < newEdges.length; i++) {
+            newEdges[i] = edges[i];
+        }
+        edges = newEdges;
     }
 
     public int[][] unionFind() {
