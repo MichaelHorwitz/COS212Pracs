@@ -15,7 +15,7 @@ public class Graph {
         }
         Vertex[] newVertices = new Vertex[vertices.length + 1];
         int index = 0;
-        while (newVert.compareTo(vertices[index]) < 0) {
+        while (index < vertices.length && newVert.compareTo(vertices[index]) > 0) {
             newVertices[index] = vertices[index];
             index++;
         }
@@ -63,12 +63,12 @@ public class Graph {
         }
         Edge[] newEdges = new Edge[edges.length + 1];
         int index = 0;
-        while (edge.compareTo(edges[index]) < 0) {
+        while (index < edges.length && edge.compareTo(edges[index]) > 0) {
             newEdges[index] = edges[index];
             index++;
         }
         newEdges[index] = edge;
-        for (int i = index; i < newEdges.length; i++) {
+        for (int i = index + 1; i < newEdges.length; i++) {
             newEdges[i] = edges[i-1];
         }
         edges = newEdges;
@@ -109,6 +109,7 @@ public class Graph {
             length[i] = 1;
             result[i] = 0;
         }
+
         for (int i = 0; i < edges.length; i++) {
             Edge currEdge = edges[i];
             int v = findVertIndex(currEdge.vertexA);
@@ -125,7 +126,7 @@ public class Graph {
                 }
                 int temp = next[rt];
                 next[rt] = next[root[u]];
-                next[root[u]] = next[rt];
+                next[root[u]] = temp;
             } else {
                 int rt = root[u];
                 length[root[v]] += length[rt];
@@ -135,9 +136,10 @@ public class Graph {
                 }
                 int temp = next[rt];
                 next[rt] = next[root[v]];
-                next[root[v]] = next[rt];
+                next[root[v]] = temp;
             }
         }
+
         if (cycle) {
             for (int i = 0; i < result.length; i++) {
                 result[i] = 1;
@@ -173,7 +175,7 @@ public class Graph {
         Vertex[] newVertices = new Vertex[vertices.length];
         for (int i = 0; i < newVertices.length; i++) {
             newVertices[i] = new Vertex(vertices[i].name);
-            ret.addVertex(vertices[i].name);
+            //ret.addVertex(vertices[i].name);
         }
         for (int i = 0; i < newEdges.length; i++) {
             int a = findVertIndex(edges[i].vertexA);
@@ -193,9 +195,13 @@ public class Graph {
             }
         }
         for (int i = 0; i < edges.length && ret.vertices.length < vertices.length; i++) {
-            ret.addEdge(edges[i].vertexA.name, edges[i].vertexB.name, edges[i].weight);
+            String a = newEdges[i].vertexA.name;
+            String b = newEdges[i].vertexB.name;
+            ret.addVertex(a);
+            ret.addVertex(b);
+            ret.addEdge(a, b, newEdges[i].weight);
             if (ret.cycle()) {
-                ret.removeEdge(edges[i].vertexA.name, edges[i].vertexB.name);
+                ret.removeEdge(a, b);
             }
         }
         return ret;
@@ -359,11 +365,13 @@ public class Graph {
             ret += vertices[i].name;
         }
         for (int i = 0; i < vertices.length; i++) {
-            for (int j = 0; j < vertices.length; j++) {
-                
-            }
             ret += "\n";
+            ret += vertices[i].name;
+            for (int j = 0; j < vertices.length; j++) {
+                ret += "\t";
+                ret += adjMatrix[i][j];
+            }
         }
-        return "";
+        return ret;
     }
 }

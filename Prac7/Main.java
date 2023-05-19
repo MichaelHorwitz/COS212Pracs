@@ -36,6 +36,7 @@ public class Main {
         }
         System.out.println("---\nminSpanningTree\n---");
         System.out.println(g.minSpanningTree());
+        /*
         System.out.println("---\ncolouring\n---");
         Vertex[][] colourRes = g.brelazColouring();
         for (int r = 0; r < colourRes.length; r++) {
@@ -44,5 +45,6 @@ public class Main {
             }
             System.out.println();
         }
+        */
     }
 }
