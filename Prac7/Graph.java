@@ -220,11 +220,11 @@ public class Graph {
         }
         while (hasZero(color)) {
             int v = findBCAV(saturationDeg, uncoloredDeg, color); //find max uncolored with highest saturation
-            int j = findBCAJ(v, color);
+            int j = findBCAJ(v, color); //smallest colour not in neighbour v
             int [] neighbours = neighbours(v);
-            for (int i = 0; i < neighbours.length; i++) {
-                if (color[neighbours[i]] == -1) {
-                    int u = neighbours[i];
+            for (int i = 0; i < neighbours.length; i++) { // For each neighbour of v
+                if (color[neighbours[i]] == -1) { // uncoloured
+                    int u = neighbours[i];//uncoloured neighbour of v
                     int [] uNeigh = neighbours(u);
                     boolean assignedCj = false;
                     for (int k = 0; k < uNeigh.length; k++) {
@@ -232,7 +232,7 @@ public class Graph {
                             assignedCj = true;
                         }
                     }
-                    if (!assignedCj) {
+                    if (!assignedCj) {//if no vertex adjacent to u is assigned colour j
                         saturationDeg[u]++;
                     }
                     uncoloredDeg[u]--;
@@ -269,7 +269,7 @@ public class Graph {
         while (!correctVal) {
             correctVal = true;
             for (int i = 0; i < neighbours.length; i++) {
-                if (j == color[i]) {
+                if (j == color[neighbours[i]]) {
                     j++;
                     correctVal = false;
                 }
@@ -283,11 +283,11 @@ public class Graph {
         int numNeigh = 0;
         for (int i = 0; i < edges.length; i++) {
             if (edges[i].vertexA.compareTo(vertices[index]) == 0) {
-                ret[numNeigh] = findVertIndex(edges[i].vertexA);
+                ret[numNeigh] = findVertIndex(edges[i].vertexB);
                 numNeigh++;
             }
             if (edges[i].vertexB.compareTo(vertices[index]) == 0) {
-                ret[numNeigh] = findVertIndex(edges[i].vertexB);
+                ret[numNeigh] = findVertIndex(edges[i].vertexA);
                 numNeigh++;
             }
         }
@@ -302,8 +302,9 @@ public class Graph {
         int index = -1;
         int maxUnCol = -1;
         int maxSat = -1;
+        boolean hasZero = hasZero(color);
         for (int i = 0; i < color.length; i++) {
-            if (color[i] != -1) {
+            if (color[i] == -1) {
                 if (saturationDeg[i] > maxSat) {
                     index = i;
                     maxSat = saturationDeg[i];
@@ -322,7 +323,7 @@ public class Graph {
     }
     private boolean hasZero(int[] arr){
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == 0) {
+            if (arr[i] == -1) {
                 return true;
             }
         }
