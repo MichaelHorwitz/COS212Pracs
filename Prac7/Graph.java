@@ -17,6 +17,7 @@ public class Graph {
         int index = 0;
         while (newVert.compareTo(vertices[index]) < 0) {
             newVertices[index] = vertices[index];
+            index++;
         }
         newVertices[index] = newVert;
         for (int i = index + 1; i < newVertices.length; i++) {
@@ -49,9 +50,32 @@ public class Graph {
     }
 
     public void addEdge(String a, String b, int w) {
+        Vertex aVertex = new Vertex(a), bVertex = new Vertex(b);
+        Edge edge = new Edge(aVertex, bVertex, w);
+        boolean duplicate = false;
+        for (int i = 0; i < edges.length; i++) {
+            if (edge.compareTo(edges[i]) == 0) {
+                duplicate = true;
+            }
+        }
+        if (duplicate) {
+            return;
+        }
+        Edge[] newEdges = new Edge[edges.length + 1];
+        int index = 0;
+        while (edge.compareTo(edges[index]) < 0) {
+            newEdges[index] = edges[index];
+            index++;
+        }
+        newEdges[index] = edge;
+        for (int i = index; i < newEdges.length; i++) {
+            newEdges[i] = edges[i-1];
+        }
+        edges = newEdges;
     }
 
     public void removeEdge(String a, String b) {
+        
     }
 
     public int[][] unionFind() {
