@@ -353,6 +353,11 @@ public class Graph {
             adjMatrix[b][a] = adjMatrix[a][b];
         }
         String ret = "";
+
+        for (int i = 0; i < vertices.length; i++) {
+            ret += "\t";
+            ret += vertices[i].name;
+        }
         for (int i = 0; i < vertices.length; i++) {
             for (int j = 0; j < vertices.length; j++) {
                 
