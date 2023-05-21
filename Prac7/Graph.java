@@ -42,6 +42,7 @@ public class Graph {
         for (int i = 0; i < edges.length; i++) {
             if (edges[i].vertexA.compareTo(vToFind) == 0 || edges[i].vertexB.compareTo(vToFind) == 0) {
                 removeEdge(edges[i].vertexA.name, edges[i].vertexB.name);
+                i--;
             }
         }
         for (int i = indexAt; i < vertices.length - 1; i++) {
@@ -80,6 +81,7 @@ public class Graph {
     }
 
     public void removeEdge(String a, String b) {
+        
         Edge edge = new Edge(new Vertex(a),new Vertex(b), 0);
         boolean found = false;
         int indexAt = 0;

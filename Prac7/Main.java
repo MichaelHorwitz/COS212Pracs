@@ -4,7 +4,57 @@ public class Main {
         //test1();
         //test2();
         //test3();
-        test4();
+        //test4();
+        //test5();
+        test6();
+    }
+    private static void test6(){
+        Graph g = new Graph();
+        g.addVertex("a");
+        g.addVertex("b");
+        g.addEdge("a", "b", 0);
+        System.out.println(g);
+        g.removeVertex("a");
+        System.out.println(g);
+        g.removeVertex("b");
+        System.out.println(g);
+        g.removeVertex("a");
+        System.out.println(g);
+    }
+    private static void test5(){
+        Graph g = new Graph();
+
+        String[] verts = { "a", "b", "c", "d", "e", "f", "g", "h" };
+        String[][] edges = { { "a", "e", "1" },
+                { "a", "f", "-1" },
+                { "a", "g", "2" },
+                { "b", "e", "-2" },
+                { "b", "c", "3" },
+                { "b", "h", "-3" },
+                { "c", "g", "4" },
+                { "d", "f", "-4" },
+                { "d", "g", "5" },
+                { "f", "g", "-5" },
+                { "f", "h", "6" },
+                { "g", "h", "-6" } };
+
+        for (String s : verts) {
+            g.addVertex(s);
+        }
+
+        for (String[] e : edges) {
+            g.addEdge(e[0], e[1], Integer.valueOf(e[2]));
+        }
+        String[] rem = {"a", "g", "d", "f", "z", "f"};
+        System.out.println(g);
+        for (String r : rem) {
+            g.removeVertex(r);
+            System.out.println("####################################################\n" + g);
+            System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+            for (Edge e : g.edges) {
+                System.out.println(e);
+            }
+        }
     }
     private static void test4(){
         Graph g = new Graph();
