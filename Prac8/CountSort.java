@@ -15,18 +15,22 @@ public class CountSort<T extends Comparable<T>> extends Sort<T> {
         //Do not change the statement below
         printArr(res, sumCount);
         //Ensure only return statement is below this
+        return null;
         
     }
-
+    
     private int[] formCountArr(Comparable<T>[] arr){
+        return null;
         
     }
-
+    
     private int[] sumCount(int[] countArr){
+        return null;
         
     }
-
+    
     private int countArraySize(Comparable<T>[] arr){
+        return -1;
         
     }
 
