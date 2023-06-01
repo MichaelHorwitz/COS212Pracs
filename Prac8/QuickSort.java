@@ -4,7 +4,7 @@ public class QuickSort<T extends Comparable<T>> extends Sort<T> {
     public Comparable<T>[] sort(Comparable<T>[] arr) {
         printArr(arr);
         // Add code below this line
-        recSort(arr, arr);
+        recSort(arr);
         return null;
     }
 
@@ -31,7 +31,7 @@ public class QuickSort<T extends Comparable<T>> extends Sort<T> {
             recSort(arr1);
             // quicksort(data2[]);
             //huh
-            System.out.println("he");
+            //System.out.println("he");
             recSort(arr2);
             for (int i = 0; i < arr1.length; i++) {
                 arr[i] = arr1[i];
@@ -49,16 +49,25 @@ public class QuickSort<T extends Comparable<T>> extends Sort<T> {
         // lower = first + 1, upper = last;
         int lower = 1;
         int upper = arr.length - 1;
+        Comparable<T> largest = arr[upper];
+        int largestIndex = upper;
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i].compareTo((T)largest) > 0) {
+                largest = arr[i];
+                largestIndex = i;
+            }
+        }
+        swap(arr, largestIndex, upper);
         // T pivot = data[first];
-        T pivot = arr[0];
+        Comparable<T> pivot = arr[0];
         // while (lower <= upper) {
         while (lower <= upper) {
             // while (data[lower] < pivot) lower++;
-            while (arr[lower].compareTo(pivot) < 0) {
+            while (lower < arr.length && arr[lower].compareTo((T)pivot) < 0) {
                 lower++;
             }
             // while (data[upper] > pivot) upper--;
-            while (arr[upper].compareTo(pivot) > 0) {
+            while (upper < arr.length && arr[upper].compareTo((T)pivot) > 0) {
                 upper--;
             }
             // if (lower < upper)
@@ -75,7 +84,7 @@ public class QuickSort<T extends Comparable<T>> extends Sort<T> {
     private void swap(Comparable<T>[] arr, int firstIndex, int secondIndex) {
         Comparable<T> temp = arr[firstIndex];
         arr[firstIndex] = arr[secondIndex];
-        arr[secondIndex] = arr[firstIndex];
+        arr[secondIndex] = temp;
     }
 
     private int getPivotPoint(Comparable<T>[] arr) {

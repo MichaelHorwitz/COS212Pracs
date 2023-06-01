@@ -1,11 +1,13 @@
 public class App {
     public static void main(String[] args) throws Exception {
         //studentExample();
-
+        quickSortTest();
     }
-    public static quickSortTest(){
-        Integer[] arr1 = {6, 39, 24, 38, 7};
-        
+    public static void quickSortTest(){
+        Integer[] arr1 = {5, 4, 6, 3, 7, 2, 8, 1};// = {6, 39, 24, 38, 7};
+        QuickSort<Integer> qs = new QuickSort<Integer>();
+        qs.sort(arr1);
+        QuickSort.printArr(arr1);
     }
     public static Integer[] getArray(){
         Integer[] arr = new Integer[8];
