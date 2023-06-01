@@ -1,8 +1,12 @@
 public class App {
     public static void main(String[] args) throws Exception {
         //studentExample();
-    }
 
+    }
+    public static quickSortTest(){
+        Integer[] arr1 = {6, 39, 24, 38, 7};
+        
+    }
     public static Integer[] getArray(){
         Integer[] arr = new Integer[8];
         arr[0] = 5;
