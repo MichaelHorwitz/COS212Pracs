@@ -1,7 +1,15 @@
 public class App {
     public static void main(String[] args) throws Exception {
         //studentExample();
-        quickSortTest();
+        //quickSortTest();
+        mergeSortTest();
+    }
+    public static void mergeSortTest(){
+        //Integer[] arr1 = {5, 4, 6, 3, 7, 2, 8};// = {6, 39, 24, 38, 7};
+        Integer[] arr1 = {6, 39, 24, 38, 7};
+        MergeSort<Integer> ms = new MergeSort<Integer>();
+        Comparable<Integer>[] arr2 = ms.sort(arr1);
+        MergeSort.printArr(arr2);
     }
     public static void quickSortTest(){
         Integer[] arr1 = {5, 4, 6, 3, 7, 2, 8, 1};// = {6, 39, 24, 38, 7};
