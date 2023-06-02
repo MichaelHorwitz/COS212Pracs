@@ -25,8 +25,27 @@ public class App {
         Integer[] arr1 = myGetArray(11, 20);
         System.out.println();
         QuickSort<Integer> qs = new QuickSort<Integer>();
-        qs.sort(arr1);
-        QuickSort.printArr(arr1);
+        Comparable<Integer>[] arr2 = qs.sort(arr1);
+        QuickSort.printArr(arr2);
+        while (isSorted(arr2)) {
+            int size = getRandomInt(100000);
+            int bound = getRandomInt(100000);
+            arr1 = myGetArray(size, bound);
+            arr2 = qs.sort(arr1);
+            //arr2[0] = 1001;
+            QuickSort.printArr(arr2);
+        }
+    }
+    public static int getRandomInt(int bound){
+        return (int)(Math.random() * bound);
+    }
+    public static boolean isSorted(Comparable<Integer>[] arr){
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i - 1].compareTo((Integer)arr[i]) > 0) {
+                return false;
+            }
+        }
+        return true;
     }
     public static Integer[] myGetArray(int size, int bound){
         //int size = 10;
