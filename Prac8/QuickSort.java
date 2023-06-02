@@ -81,6 +81,8 @@ public class QuickSort<T extends Comparable<T>> extends Sort<T> {
             if (lower < upper) {
                 // swap(data[lower++],data[upper--]);
                 swap(arr, lower++, upper--);
+            } else {
+                lower++;
             }
         }
         // swap(data[upper],data[first]);

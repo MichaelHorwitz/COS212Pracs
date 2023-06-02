@@ -29,11 +29,11 @@ public class MergeSort <T extends Comparable<T>> extends Sort<T> {
                 }
             } else {
                 arr2 = new Comparable[size - 1];
-                for (int i = 0; i <= mid; i++) {
+                for (int i = 0; i < mid; i++) {
                     arr1[i] = arr[i];
                 }
-                for (int i = mid + 1; i < arr.length; i++) {
-                    arr2[i - mid - 1] = arr[i];
+                for (int i = mid; i < arr.length; i++) {
+                    arr2[i - mid] = arr[i];
                 }
                 
             }
