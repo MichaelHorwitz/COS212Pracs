@@ -1,17 +1,24 @@
 public class QuickSort<T extends Comparable<T>> extends Sort<T> {
+    boolean first;
     @Override
     @SuppressWarnings("unchecked")
     public Comparable<T>[] sort(Comparable<T>[] arr) {
         printArr(arr);
         // Add code below this line
-        recSort(arr);
-        return null;
-    }
+        first = true;
+        arr = recSort(arr);
+        return arr;
 
+    }
+    
     
     @SuppressWarnings("unchecked")
     private Comparable<T>[] recSort(Comparable<T>[] arr) {// }, Comparable<T>[] resultingArr){
-        printArr(arr);
+        if (!first) {
+            printArr(arr);
+        } else {
+            first = false;
+        }
         // Add code below this line
         // if data.length > 1
         if (arr.length > 1) {

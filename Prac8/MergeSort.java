@@ -1,5 +1,3 @@
-import java.nio.channels.SeekableByteChannel;
-
 public class MergeSort <T extends Comparable<T>> extends Sort<T> {
     @Override
     @SuppressWarnings("unchecked")

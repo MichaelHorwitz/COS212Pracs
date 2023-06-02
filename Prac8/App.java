@@ -1,8 +1,16 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        //studentExample();
+        studentExample();
         //quickSortTest();
-        mergeSortTest();
+        //mergeSortTest();
+        //countSortTest();
+    }
+    public static void countSortTest(){
+        //Integer[] arr1 = {5, 4, 6, 3, 7, 2, 8};// = {6, 39, 24, 38, 7};
+        Integer[] arr1 = {38, 6, 39, 24, 24, 38, 7};
+        CountSort<Integer> cs = new CountSort<Integer>();
+        Comparable<Integer>[] arr2 = cs.sort(arr1);
+        CountSort.printArr(arr2);
     }
     public static void mergeSortTest(){
         //Integer[] arr1 = {5, 4, 6, 3, 7, 2, 8};// = {6, 39, 24, 38, 7};
@@ -12,7 +20,7 @@ public class App {
         MergeSort.printArr(arr2);
     }
     public static void quickSortTest(){
-        Integer[] arr1 = {5, 4, 6, 3, 7, 2, 8, 1};// = {6, 39, 24, 38, 7};
+        Integer[] arr1 = {5, 4, 6, 3, 7, 7, 2, 8, 1};// = {6, 39, 24, 38, 7};
         QuickSort<Integer> qs = new QuickSort<Integer>();
         qs.sort(arr1);
         QuickSort.printArr(arr1);
