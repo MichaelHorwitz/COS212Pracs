@@ -15,25 +15,28 @@ public class App {
     public static void mergeSortTest(){
         //Integer[] arr1 = {5, 4, 6, 3, 7, 2, 8};// = {6, 39, 24, 38, 7};
         Integer[] arr1 = {6, 39, 24, 38, 7};
+        //Integer[] arr1 = myGetArray(10, 20);
         MergeSort<Integer> ms = new MergeSort<Integer>();
         Comparable<Integer>[] arr2 = ms.sort(arr1);
         MergeSort.printArr(arr2);
     }
     public static void quickSortTest(){
         //Integer[] arr1 = {5, 4, 6, 3, 7, 7, 2, 8, 1};// = {6, 39, 24, 38, 7};
-        int size = 10;
-        int bound = 20;
-        Integer[] arr1 = new Integer[size];
-        for (int i = 0; i < size; i++) {
-            arr1[i] = (int)(Math.random() * bound);
-            System.out.print(arr1[i] + " | ");
-        }//[2;9;13;8;18;8;10;10;4;1]
-        Integer[] arr2 = {2,9,13,8,18,8,10,10,4,1};
-        arr1 = arr2;
+        Integer[] arr1 = myGetArray(11, 20);
         System.out.println();
         QuickSort<Integer> qs = new QuickSort<Integer>();
         qs.sort(arr1);
         QuickSort.printArr(arr1);
+    }
+    public static Integer[] myGetArray(int size, int bound){
+        //int size = 10;
+        //int bound = 20;
+        Integer[] arr1 = new Integer[size];
+        for (int i = 0; i < size; i++) {
+            arr1[i] = (int)(Math.random() * bound);
+            System.out.print(arr1[i] + " | ");
+        }
+        return arr1;
     }
     public static Integer[] getArray(){
         Integer[] arr = new Integer[8];

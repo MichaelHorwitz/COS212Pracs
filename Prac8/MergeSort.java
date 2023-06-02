@@ -17,9 +17,10 @@ public class MergeSort <T extends Comparable<T>> extends Sort<T> {
             // 	    mid = (first + last) / 2;
             int mid = getMidPoint(0, arr.length);
             int size = (int)Math.ceil(arr.length/2.0);
-            Comparable<T>[] arr1 = new Comparable[size];
+            Comparable<T>[] arr1;// = new Comparable[size];
             Comparable<T>[] arr2;
             if (arr.length % 2 == 0) {
+                arr1 = new Comparable[size];
                 arr2 = new Comparable[size];
                 for (int i = 0; i < mid; i++) {
                     arr1[i] = arr[i];
@@ -28,7 +29,8 @@ public class MergeSort <T extends Comparable<T>> extends Sort<T> {
                     arr2[i - mid] = arr[i];
                 }
             } else {
-                arr2 = new Comparable[size - 1];
+                arr1 = new Comparable[size - 1];
+                arr2 = new Comparable[size];
                 for (int i = 0; i < mid; i++) {
                     arr1[i] = arr[i];
                 }
