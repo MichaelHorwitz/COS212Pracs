@@ -1,21 +1,24 @@
 public class Node {
     private final String annotation;
-    private final /*Own data structure goes here of type Edge*/ edges;
+    private final myDS<Edge> edges;
     
     public Node(String annot){
-        //TODO: Implement the function
+        annotation = annot;
+        edges = new myDS<Edge>();
     }
 
     public void addEdge(Node nextNode, String annotation, int compTime){
-        //TODO: Implement the function
+        Edge edgeToIns = new Edge(annotation, nextNode, compTime);
+        edges.insert(edgeToIns);
     }
 
     public String getAnnotation(){
-        //TODO: Implement the function
+        return annotation;
     }
 
     public Edge[] getEdges(){
-        //TODO: Implement the function
+        Edge[] ret = (Edge[])edges.toArray();
+        return ret;
     }
 
     public String toString(){

@@ -4,19 +4,20 @@ public class Edge {
     private final int computationalTime;
 
     public Edge(String annot, Node nextNode, int compTime){
-        //TODO: Implement the function
+        annotation = annot;
+        this.nextNode = nextNode;
+        computationalTime = compTime;
     }
 
     public Node getNext(){
-        //TODO: Implement the function
+        return nextNode;
     }
 
     public String getAnnotation(){
-        //TODO: Implement the function
+        return annotation;
     }
-
     public int getCompTime(){
-        //TODO: Implement the function
+        return computationalTime;
     }
 
     public String toString(){

@@ -1,13 +1,13 @@
-public class myDS<T extends Comparable<T>>{
-    Comparable<T>[] mainArr;
+public class myDS<T>{
+    T[] mainArr;
     int size;
     int numElements;
     public myDS(){
-        mainArr = new Comparable[0];
+        mainArr = (T[])new Object[0];
         size = 0;
         numElements = 0;
     }
-    public void insert(Comparable<T> data){
+    public void insert(T data){
         if (numElements + 1 >= size) {
             resize(2.0);
         }
@@ -15,7 +15,7 @@ public class myDS<T extends Comparable<T>>{
         numElements++;
 
     }
-    public boolean remove(Comparable<T> data){
+    public boolean remove(T data){
         int index = -1;
         for (int i = 0; i < numElements && index == -1; i++) {
             if (data.equals(mainArr[i])) {
@@ -39,19 +39,19 @@ public class myDS<T extends Comparable<T>>{
         int newSize = (int)(size * resizeFactor);
         if (size == 0 && resizeFactor > 1) {
             newSize = 1;
-            mainArr = new Comparable[1];
+            mainArr = (T[])new Object[1];
             size = newSize;
             return;
         }
-        Comparable<T>[] newArr = new Comparable[newSize];
+        T[] newArr = (T[])new Object[newSize];
         for (int i = 0; i < numElements; i++) {
             newArr[i] = mainArr[i];
         }
         mainArr = newArr;
         size = newSize;
     }
-    public Comparable<T>[] toArray(){
-        Comparable<T>[] retArr = new Comparable[numElements];
+    public Object[] toArray(){
+        T[] retArr = (T[])new Object[numElements];
         for (int i = 0; i < numElements; i++) {
             retArr[i] = mainArr[i];
         }
@@ -64,4 +64,19 @@ public class myDS<T extends Comparable<T>>{
         }
         return ret;
     }
+    public T search(T data){
+        for (int i = 0; i < numElements; i++) {
+            if (data.equals(mainArr[i])) {
+                return mainArr[i];
+            }
+        }
+        return null;
+    }
+    public boolean contains(T data){
+        if (search(data) != null){
+            return true;
+        }
+        return false;
+    }
+    
 }

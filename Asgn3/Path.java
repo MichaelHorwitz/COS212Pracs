@@ -1,24 +1,64 @@
 public class Path {
     private final Node startNode;
     private Node endNode;
-    private final /*Own data structure goes here of type Node*/ nodes;
-    private final /*Own data structure goes here of type Edge*/ edges;
+    private final myDS<Node> nodes;
+    private final myDS<Edge> edges;
 
     public Path(Node startNode, Node endNode, Node[] nodes, Edge[] edges){
-        //TODO: Implement the function
+        this.startNode = startNode;
+        this.endNode = endNode;
+        this.nodes = new myDS<Node>();
+        this.edges = new myDS<Edge>();
+        if (nodes != null) {
+            for (int i = 0; i < nodes.length; i++) {
+                this.nodes.insert(nodes[i]);
+            }
+        }
+        if (edges != null) {
+            for (int i = 0; i < edges.length; i++) {
+                this.edges.insert(edges[i]);
+            }
+        }
     }
 
     public Path(Path other){
-        //TODO: Implement the function
+        startNode = other.startNode;
+        endNode = other.endNode;
+        nodes = new myDS<Node>();
+        edges = new myDS<Edge>();
+        Node[] nodeArr = (Node[])other.nodes.toArray();
+        Edge[] edgeArr = (Edge[])other.edges.toArray();
+        for (Node node : nodeArr) {
+            nodes.insert(node);
+        }
+        for (Edge edge : edgeArr) {
+            edges.insert(edge);
+        }
     }
 
     public int computationalCostOfPath(){
-        //TODO: Implement the function
+        Edge[] edgeArr = (Edge[])edges.toArray();
+        int cost = 0;
+        for (Edge edge : edgeArr) {
+            cost += edge.getCompTime();
+        }
+        return cost;
     }
 
     @SuppressWarnings("unchecked")
     public void appendToPath(Path p){
-        //TODO: Implement the function
+        Edge[] edgeArr = (Edge[])p.edges.toArray();
+        Node[] nodeArr = (Node[])p.nodes.toArray();
+        for (Node node : nodeArr) {
+            if (!nodes.contains(node)) {
+                nodes.insert(node);
+            }
+        }
+        for (Edge edge : edgeArr) {
+            if (!edges.contains(edge)) {
+                edges.insert(edge);
+            }
+        }
     }
 
     public boolean validPath(){

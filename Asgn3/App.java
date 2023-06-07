@@ -3,7 +3,7 @@ public class App {
         // SpecExample1();
         testMyDSInsertRemove();
     }
-
+    
     public static void testMyDSInsertRemove() {
         myDS<Integer> mds = new myDS<Integer>();
         Integer[] toAdd = { 2, 3, 5, 4, 7, 1 };
@@ -13,11 +13,14 @@ public class App {
             System.out.println(mds);
         }
         System.out.println("TESTING TOARRAY");
-        Comparable<Integer>[] minArr = mds.toArray();
-        for (Comparable<Integer> comparable : minArr) {
+        Object[] minArr = mds.toArray();
+    
+        for (Object comparable : minArr) {
             System.out.print(comparable + ", ");
         }
-        System.out.println();
+        System.out.println("\nTESTING CONTAINS");
+        System.out.println(mds.contains(2));
+        System.out.println(mds.contains(21));
         System.out.println("TESTING REMOVE");
         Integer[] toRem = {3,2,21,4,7,5,1};
         for (Integer integer : toRem) {
