@@ -133,13 +133,14 @@ public class CFG {
     }
 
     public boolean isReachable(Node startNode, Node goalNode) {
-        // TODO: Implement the function
-        return false;
+        return connected(startNode, goalNode);
     }
 
     public int compTimeRequired(Path p) {
-        // TODO: Implement the function
-        return -1;
+        if (p == null) {
+            return -1;
+        }
+        return p.computationalCostOfPath();
     }
 
     public Path shortestCompTimePath(Node sN, Node gN) {
