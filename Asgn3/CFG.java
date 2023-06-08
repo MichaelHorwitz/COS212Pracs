@@ -1,8 +1,8 @@
 public class CFG {
     private Node startNode;
-    private /*Own data structure goes here of type Node*/ nodes;
-    private /*Own data structure goes here of type Edge*/ edges;
-    private /*Own data structure goes here of type Node*/ exitNodes;
+    private myDS<Node> nodes;
+    private myDS<Edge> edges;
+    private myDS<Node> exitNodes;
 
     public CFG(){
         //TODO: Implement the function

@@ -1,7 +1,21 @@
 public class App {
     public static void main(String[] args) {
         // SpecExample1();
-        testMyDSInsertRemove();
+        //testMyDSInsertRemove();
+        //testNodes();
+        testEdges();
+    }
+    public static void testEdges(){
+        
+    }
+    public static void testNodes(){
+        Node nodeA = new Node("A");
+        Node nodeB = new Node("B");
+        nodeA.addEdge(nodeB, "AB", 2);
+        for (Edge edge : nodeA.getEdges()) {
+            System.out.println(edge + " | ");
+        }
+        System.out.println(nodeA.getAnnotation());
     }
     
     public static void testMyDSInsertRemove() {

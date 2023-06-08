@@ -62,7 +62,24 @@ public class Path {
     }
 
     public boolean validPath(){
-        //TODO: Implement the function
+        Node[] nodeArr = (Node[])nodes.toArray();
+        Edge[] edgeArr;
+        boolean valid = true;
+        for (int i = 0; i < nodeArr.length - 1; i++) {
+            Node currNode = nodeArr[i];
+            Node nextNode = nodeArr[i+1];
+            edgeArr = currNode.getEdges();
+            valid = false;
+            for (Edge edge : edgeArr) {
+                if (edge.getNext().getAnnotation().equals(nextNode.getAnnotation())) {
+                    valid = true;
+                }
+            }
+            if (!valid) {
+                return false;
+            }
+        }
+        return valid;
     }
 
     public String toString(){
