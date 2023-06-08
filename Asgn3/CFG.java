@@ -99,8 +99,37 @@ public class CFG {
     }
 
     public CFG[] splitGraph() {
-        // TODO: Implement the function
-        return null;
+        //For each exit node EN
+        Object[] ogExitNodes = exitNodes.toArray();
+        CFG[] cfgs = new CFG[ogExitNodes.length];
+        for (int i = 0; i <  ogExitNodes.length; i++) {
+        //for (Object exitNodeObj : exitNodes.toArray()) {
+            //make a new CFG with the current CFG s start node as the start node and EN as the exit node .
+            Node exitNode = (Node) ogExitNodes[i];
+            Node[] nodeArr  = {startNode, exitNode};
+            Edge[] edgeArr = new Edge[startNode.getEdges().length + exitNode.getEdges().length];
+            Node[] exitArr = {exitNode};
+            CFG currCFG = new CFG(nodeArr, edgeArr, startNode, exitArr);
+            cfgs[i] = currCFG;
+        }
+        //For every node N in the current CFG 
+        Object[] ogAllNodes = nodes.toArray();
+        for (int i = 0; i < ogAllNodes.length; i++) {
+            Node currNode = (Node) ogAllNodes[i];
+            for (int j = 0; j < ogExitNodes.length; j++) {
+                //check if N can reach each of the exit nodes
+                Node currExitNode = (Node) ogExitNodes[i];
+                if (connected(currNode, currExitNode)) {
+                    //If it can then add that node to the appropriate new CFG .
+                    cfgs[i].addNode(currNode);
+                    for (Edge edge : currNode.getEdges()) {
+                        //Remember to also add all the appropriate edges .
+                        cfgs[i].addEdge(edge.getAnnotation(), currNode, edge.getNext(), edge.getCompTime());
+                    }
+                }
+            }
+        }
+        return cfgs;
     }
 
     public boolean isReachable(Node startNode, Node goalNode) {
