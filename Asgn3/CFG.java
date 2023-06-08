@@ -81,12 +81,21 @@ public class CFG {
         Edge[] edges = firstNode.getEdges();
         for (Edge edge : edges) {
             boolean conn = connected(edge.getNext(), goalNode);
+            if (conn) {
+                return true;
+            }
         }
         return false;
     }
     public boolean isSESE() {
-        // TODO: Implement the function
-        return false;
+        boolean valid = this.isValid();
+        if (exitNodes.toArray().length != 1) {
+            return false;
+        }
+        if (!valid) {
+            return false;
+        }
+        return true;
     }
 
     public CFG[] splitGraph() {
