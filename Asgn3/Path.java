@@ -37,7 +37,7 @@ public class Path {
     }
 
     public int computationalCostOfPath(){
-        Edge[] edgeArr = (Edge[])edges.toArray();
+        Edge[] edgeArr = objToEdge(edges.toArray());
         int cost = 0;
         for (Edge edge : edgeArr) {
             cost += edge.getCompTime();
@@ -62,7 +62,7 @@ public class Path {
     }
 
     public boolean validPath(){
-        Node[] nodeArr = (Node[])nodes.toArray();
+        Node[] nodeArr = objToNode(nodes.toArray());
         Edge[] edgeArr;
         boolean valid = true;
         for (int i = 0; i < nodeArr.length - 1; i++) {
@@ -82,6 +82,22 @@ public class Path {
         return valid;
     }
 
+    private Node[] objToNode(Object[] objArr){
+        Node[] ret = new Node[objArr.length];
+        for (int i = 0; i < objArr.length; i++) {
+            ret[i] = (Node)objArr[i];
+        }
+        return ret;
+    }
+
+    private Edge[] objToEdge(Object[] objArr){
+        Edge[] ret = new Edge[objArr.length];
+        for (int i = 0; i < objArr.length; i++) {
+            ret[i] = (Edge)objArr[i];
+        }
+        return ret;
+    }
+
     public String toString(){
         //Provided function, do not alter!!!
         String str = "";
@@ -91,5 +107,6 @@ public class Path {
         }
         return str;
     }
+
     
 }

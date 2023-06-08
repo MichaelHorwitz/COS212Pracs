@@ -78,5 +78,13 @@ public class myDS<T>{
         }
         return false;
     }
+    public T[] toTArray(){
+        Object[] objArr = this.toArray();
+        T[] tArr = (T[])(new Object[objArr.length]);
+        for (int i = 0; i < objArr.length; i++) {
+            tArr[i] = (T)objArr[i];
+        }
+        return tArr;
+    }
     
 }
