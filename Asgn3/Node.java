@@ -24,7 +24,13 @@ public class Node {
         }
         return ret;
     }
-
+    public boolean equals(Node data){
+        if (this.annotation.equals(data.getAnnotation())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public String toString(){
         //Provided function, do not alter!!!
         String res = annotation + ":\n";

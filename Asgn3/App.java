@@ -9,12 +9,13 @@ public class App {
         Node nodeA = new Node("A");
         Node nodeB = new Node("B");
         Node nodeC = new Node("C");
-        Edge edgeAB = new Edge("AB", nodeB, 2);
-        Edge edgeBC = new Edge("BC", nodeC, 3);
+        //Edge edgeAB = new Edge("AB", nodeB, 2);
+        //Edge edgeBC = new Edge("BC", nodeC, 3);
         nodeB.addEdge(nodeC, "BC", 3);
         nodeA.addEdge(nodeB, "AB", 2);
+        Edge[] edges = {nodeA.getEdges()[0], nodeB.getEdges()[0]};
         Node[] nodes = {nodeA, nodeB, nodeC};
-        Edge[] edges = {edgeAB, edgeBC};
+        
         Path p = new Path(nodeA, nodeC, nodes, edges);
         System.out.println(p.computationalCostOfPath());
         System.out.println(p.validPath());

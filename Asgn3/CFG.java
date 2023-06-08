@@ -49,35 +49,74 @@ public class CFG {
     }
 
     public boolean isValid() {
-        // TODO: Implement the function
-    }
+        if (startNode == null) {
+            return false;
+        }
+        if (exitNodes.toArray().length < 1) {
+            return false;
+        }
+        for (Object nodeObj : nodes.toArray()) {
+            Node node = (Node) nodeObj;
+            boolean valid = false;
+            for (Object exitNodeObj : exitNodes.toArray()) {
+                Node exitNode = (Node) exitNodeObj;
+                if (node.equals(exitNode)) {
+                    valid = true;
+                }
+                if (connected(node, exitNode)) {
+                    valid = true;
+                }
+            }
+            if (!valid) {
+                return false;
+            }
 
+        }
+        return true;
+    }
+    private boolean connected(Node firstNode, Node goalNode){
+        if (firstNode.equals(goalNode)) {
+            return true;
+        }
+        Edge[] edges = firstNode.getEdges();
+        for (Edge edge : edges) {
+            boolean conn = connected(edge.getNext(), goalNode);
+        }
+        return false;
+    }
     public boolean isSESE() {
         // TODO: Implement the function
+        return false;
     }
 
     public CFG[] splitGraph() {
         // TODO: Implement the function
+        return null;
     }
 
     public boolean isReachable(Node startNode, Node goalNode) {
         // TODO: Implement the function
+        return false;
     }
 
     public int compTimeRequired(Path p) {
         // TODO: Implement the function
+        return -1;
     }
 
     public Path shortestCompTimePath(Node sN, Node gN) {
         // TODO: Implement the function
+        return null;
     }
 
     public Path[] getPrimePaths() {
         // TODO: Implement the function
+        return null;
     }
 
     public Path[] getSimplePaths() {
         // TODO: Implement the function
+        return null;
     }
 
     public void addNode(String annotation) {
@@ -111,5 +150,6 @@ public class CFG {
 
     public Node getNode(String annotation) {
         // TODO: Implement the function
+        return null;
     }
 }
