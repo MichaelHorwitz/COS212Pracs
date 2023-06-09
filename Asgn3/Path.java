@@ -26,8 +26,8 @@ public class Path {
         endNode = other.endNode;
         nodes = new myDS<Node>();
         edges = new myDS<Edge>();
-        Node[] nodeArr = (Node[])other.nodes.toArray();
-        Edge[] edgeArr = (Edge[])other.edges.toArray();
+        Node[] nodeArr = Node.objToNodeArr(other.nodes.toArray());//(Node[])other.nodes.toArray();
+        Edge[] edgeArr = Edge.objToEdgeArr(other.edges.toArray());//(Edge[])other.edges.toArray();
         for (Node node : nodeArr) {
             nodes.insert(node);
         }
@@ -47,8 +47,8 @@ public class Path {
 
     @SuppressWarnings("unchecked")
     public void appendToPath(Path p){
-        Edge[] edgeArr = (Edge[])p.edges.toArray();
-        Node[] nodeArr = (Node[])p.nodes.toArray();
+        Edge[] edgeArr = Edge.objToEdgeArr(p.edges.toArray());//(Edge[])p.edges.toArray();
+        Node[] nodeArr = Node.objToNodeArr(p.nodes.toArray());//(Node[])p.nodes.toArray();
         for (Node node : nodeArr) {
             if (!nodes.contains(node)) {
                 nodes.insert(node);
@@ -64,6 +64,9 @@ public class Path {
     public boolean validPath(){
         Node[] nodeArr = objToNode(nodes.toArray());
         Edge[] edgeArr;
+        if (nodeArr.length == 0) {
+            return false;
+        }
         boolean valid = true;
         for (int i = 0; i < nodeArr.length - 1; i++) {
             Node currNode = nodeArr[i];

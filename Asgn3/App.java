@@ -1,9 +1,9 @@
 public class App {
     public static void main(String[] args) {
-        // SpecExample1();
+        SpecExample1();
         //testMyDSInsertRemove();
         //testNodes();
-        testPath();
+        //testPath();
     }
     public static void testPath(){
         Node nodeA = new Node("A");

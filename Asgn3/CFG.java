@@ -261,9 +261,9 @@ public class CFG {
     }
 
     public Path[] getPrimePaths() {
-        Path[] simpPaths = getPrimePaths();
+        Path[] simpPaths = getSimplePaths();
         
-        return null;
+        return simpPaths;
     }
 
     public Path[] getSimplePaths() {
@@ -272,7 +272,8 @@ public class CFG {
         for (Node node : nodeArr) {
             myDS<Path> paths = new myDS<Path>();
             Path p = new Path(startNode, startNode, new Node[0], new Edge[0]);
-            temp.insert(resSimple(node, p, nodes.toArray().length, paths));
+            int length = nodes.toArray().length;
+            temp.insert(resSimple(node, p, length, paths));
         }
         Object[] allMyDSArray = temp.toArray();
         int totalNumPaths = 0;
@@ -286,8 +287,9 @@ public class CFG {
             myDS<Path> myDSTemp = (myDS<Path>)object;
             Path[] pathArr = objToPath(myDSTemp.toArray());
             for (Path path :pathArr) {
-                ret[i] = path;
-                i++;
+                    ret[i] = path;
+                    i++;
+                
             }
         }
         return ret;
@@ -300,9 +302,14 @@ public class CFG {
         return ret;
     }
     private myDS<Path> resSimple(Node currNode, Path currPath, int lengthRemaining, myDS<Path> paths){
+        if (lengthRemaining == 0) {
+            return paths;
+        }
         Edge[] edges = currNode.getEdges();
         Path p = new Path(currPath);
-        paths.insert(p);
+        if (p.validPath()) {
+            paths.insert(p);
+        }
         for (Edge edge : edges) {
             Node[] pAddNodes = {currNode, edge.getNext()};
             Edge[] pAddEdges = {edge};
@@ -331,10 +338,12 @@ public class CFG {
 
     public void addExitNode(Node n) {
         exitNodes.insert(n);
+        nodes.insert(n);
     }
 
     public void addStartNode(Node n) {
         startNode = n;
+        nodes.insert(n);
     }
 
     public String toString() {
