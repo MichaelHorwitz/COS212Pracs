@@ -92,7 +92,7 @@ public class CFG {
         Edge[] edges = firstNode.getEdges();
         for (Edge edge : edges) {
             boolean conn = false;
-            if (visited[findIndex(allNodes, edge.getNext())] == false) {
+            if (findIndex(allNodes, edge.getNext()) != -1 &&   visited[findIndex(allNodes, edge.getNext())] == false) {
                 visited[findIndex(allNodes, edge.getNext())] = true;
                 conn = connected(edge.getNext(), goalNode, allNodes, visited);
             }
