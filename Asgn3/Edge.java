@@ -8,7 +8,12 @@ public class Edge {
         this.nextNode = nextNode;
         computationalTime = compTime;
     }
-
+    public boolean equals(Edge data){
+        if (this.annotation.equals(data.annotation)) {
+            return true;
+        }
+        return false;
+    }
     public Node getNext(){
         return nextNode;
     }

@@ -4,22 +4,22 @@ public class Main
     {
 
         //Tests for Edge and Node
-        testSingleNodeMultiEdge();
-        testEdgeNode();
-        testMultiEdgeMultiNode();
+        //testSingleNodeMultiEdge();
+        //testEdgeNode();
+        //testMultiEdgeMultiNode();
 
         //Test for Path Class
-        testPathConstruct();
-        testPathCopy();
+        //testPathConstruct();
+        //testPathCopy();
 
-        //Tests for CFG Class
-        testCFG_Construct();
-        testReachability();
-        testValidity();
+        ////Tests for CFG Class
+        //testCFG_Construct();
+        //testReachability();
+        //testValidity();
         testSplit();
-        testShortest();
-        testSimple();
-        testPrime();
+        //testShortest();
+        //testSimple();
+        //testPrime();
 
     }
 

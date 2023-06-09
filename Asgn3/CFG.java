@@ -138,10 +138,15 @@ public class CFG {
                 Node currExitNode = (Node) ogExitNodes[j];
                 if (connected(currNode, currExitNode, null, null)) {
                     // If it can then add that node to the appropriate new CFG .
-                    cfgs[j].addNode(currNode);
+                    if (!cfgs[j].nodes.contains(currNode)) {
+                        cfgs[j].addNode(currNode);
+                    }
                     for (Edge edge : currNode.getEdges()) {
                         // Remember to also add all the appropriate edges .
-                        cfgs[j].addEdge(edge.getAnnotation(), currNode, edge.getNext(), edge.getCompTime());
+                        if (!cfgs[j].edges.contains(edge)) {
+                            cfgs[j].addEdge(edge.getAnnotation(), currNode, edge.getNext(), edge.getCompTime());
+                        }
+
                     }
                 }
             }
