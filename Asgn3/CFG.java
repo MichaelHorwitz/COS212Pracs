@@ -315,23 +315,26 @@ public class CFG {
         return paths;
     }
     public void addNode(String annotation) {
-        // TODO: Implement the function
+        Node newNode = new Node(annotation);
+        nodes.insert(newNode);
     }
 
     public void addNode(Node node) {
-        // TODO: Implement the function
+        nodes.insert(node);
     }
 
     public void addEdge(String annotation, Node fromNode, Node toNode, int computationalTime) {
-        // TODO: Implement the function
+        Edge newEdge = new Edge(annotation, toNode, computationalTime);
+        fromNode.addEdge(toNode, annotation, computationalTime);
+        edges.insert(newEdge);
     }
 
     public void addExitNode(Node n) {
-        // TODO: Implement the function
+        exitNodes.insert(n);
     }
 
     public void addStartNode(Node n) {
-        // TODO: Implement the function
+        startNode = n;
     }
 
     public String toString() {
@@ -344,7 +347,13 @@ public class CFG {
     }
 
     public Node getNode(String annotation) {
-        // TODO: Implement the function
+        Node[] nodeArr = Node.objToNodeArr(nodes.toArray());
+        Node goalNode = new Node(annotation);
+        for (int i = 0; i < nodeArr.length; i++) {
+            if (nodeArr[i].equals(goalNode)) {
+                return nodeArr[i];
+            }
+        }
         return null;
     }
 }
