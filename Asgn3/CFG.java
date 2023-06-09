@@ -1,5 +1,3 @@
-import javax.imageio.plugins.bmp.BMPImageWriteParam;
-
 public class CFG {
     private Node startNode;
     private myDS<Node> nodes;
