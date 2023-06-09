@@ -261,15 +261,59 @@ public class CFG {
     }
 
     public Path[] getPrimePaths() {
-        // TODO: Implement the function
+        Path[] simpPaths = getPrimePaths();
+        
         return null;
     }
 
     public Path[] getSimplePaths() {
-        // TODO: Implement the function
-        return null;
+        myDS<myDS<Path>> temp = new myDS<myDS<Path>>();
+        Node[] nodeArr = Node.objToNodeArr(nodes.toArray());
+        for (Node node : nodeArr) {
+            myDS<Path> paths = new myDS<Path>();
+            Path p = new Path(startNode, startNode, new Node[0], new Edge[0]);
+            temp.insert(resSimple(node, p, nodes.toArray().length, paths));
+        }
+        Object[] allMyDSArray = temp.toArray();
+        int totalNumPaths = 0;
+        for (Object object : allMyDSArray) {
+            myDS<Path> myDSTemp = (myDS<Path>)object;
+            totalNumPaths += myDSTemp.toArray().length;
+        }
+        Path[] ret = new Path[totalNumPaths];
+        int i = 0;
+        for (Object object : allMyDSArray) {
+            myDS<Path> myDSTemp = (myDS<Path>)object;
+            Path[] pathArr = objToPath(myDSTemp.toArray());
+            for (Path path :pathArr) {
+                ret[i] = path;
+                i++;
+            }
+        }
+        return ret;
     }
-
+    private Path[] objToPath(Object[] arr){
+        Path[] ret = new Path[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            ret[i] = (Path)arr[i];
+        }
+        return ret;
+    }
+    private myDS<Path> resSimple(Node currNode, Path currPath, int lengthRemaining, myDS<Path> paths){
+        Edge[] edges = currNode.getEdges();
+        Path p = new Path(currPath);
+        paths.insert(p);
+        for (Edge edge : edges) {
+            Node[] pAddNodes = {currNode, edge.getNext()};
+            Edge[] pAddEdges = {edge};
+            Path pAdd = new Path(currNode, edge.getNext(), pAddNodes, pAddEdges);
+            p = new Path(currPath);
+            p.appendToPath(pAdd);
+            paths.insert(p);
+            paths = resSimple(edge.getNext(), p, lengthRemaining - 1, paths);
+        }
+        return paths;
+    }
     public void addNode(String annotation) {
         // TODO: Implement the function
     }
