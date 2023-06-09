@@ -1,3 +1,5 @@
+import javax.imageio.plugins.bmp.BMPImageWriteParam;
+
 public class CFG {
     private Node startNode;
     private myDS<Node> nodes;
@@ -144,8 +146,118 @@ public class CFG {
     }
 
     public Path shortestCompTimePath(Node sN, Node gN) {
-        // TODO: Implement the function
+        //Dijkstra(Graph, start){
+        Node[] allNodes = Node.objToNodeArr(nodes.toArray());
+        //    create vertex set unvisited
+        Node[] unvisitedNodes = Node.objToNodeArr(nodes.toArray());
+        double[] distance = new double[allNodes.length];
+        Node[] previouNodes = Node.objToNodeArr(nodes.toArray());
+        
+        //    for (each vertex v in Graph) { // Initialization
+        for (int i = 0; i < allNodes.length; i++) {
+            //        v.dist = INFINITY         // Unknown distance from start to v
+            distance[i] = Double.POSITIVE_INFINITY;
+            //        v.prev = null             // Previous node in shortest path
+            previouNodes[i] = null;
+            //        add v to unvisited        // All vertices initially unvisited
+            //    }
+        }
+	    //start.dist = 0                // Distance from start to start (0)
+        int startIndex = findIndex(allNodes, sN);
+        distance[startIndex] = 0;
+        //while (!unvisited.empty()) {
+        while (firstNode(unvisitedNodes) != -1) {
+            //    curr = vertex in unvisited with min dist  // will be start
+            int minIndex = -1;
+            Double minDist = Double.POSITIVE_INFINITY;
+            for (int i = 0; i < unvisitedNodes.length; i++) {
+                if (distance[i] < minDist && unvisitedNodes[i] != null) {
+                   minIndex = i;
+                   minDist = distance[i]; 
+                }
+            }
+            //    remove curr from unvisited 
+            Node currNode = unvisitedNodes[minIndex];
+            unvisitedNodes[minIndex] = null;
+            //    for (each unvisited neighbour v of curr) { 
+            Edge[] neighbours = Edge.objToEdgeArr(currNode.getEdges());
+            for (int i = 0; i < neighbours.length; i++) {
+                int currIndex = findIndex(allNodes, neighbours[i].getNext());
+                //		newDist = curr.dist + length(curr, v)
+                Double newDist = distance[minIndex] + neighbours[i].getCompTime();
+                //        if (newDist < v.dist) {
+                if (newDist < neighbours[i].getCompTime()) {
+                    //		    v.dist = newDist;
+                    distance[currIndex] = newDist;
+                    //		    v.prev = curr;
+                    previouNodes[currIndex] = allNodes[minIndex];
+                    //	    }
+                }
+
+                //    }
+            }
+            //}
+        }
+        int goalIndex = findIndex(allNodes, gN);
+        Node currPrev = previouNodes[goalIndex];
+        int currPrevIndex = findIndex(allNodes, currPrev);
+        myDS<Node> reversePathNodes = new myDS<Node>();
+        myDS<Edge> reversePathEdges = new myDS<Edge>();
+        Node prev = null;
+        reversePathNodes.insert(gN);
+        while (!currPrev.equals(sN)) {
+            reversePathNodes.insert(currPrev);
+            prev = currPrev;
+            currPrev = previouNodes[currPrevIndex];
+            currPrevIndex = findIndex(allNodes, currPrev);
+            Edge edge = findEdge(currPrev.getEdges(), prev);
+            reversePathEdges.insert(edge);
+        }
+        reversePathEdges.insert(findEdge(currPrev.getEdges(), prev));
+        reversePathNodes.insert(sN);
+        Node[] reverseNodes = Node.objToNodeArr(reversePathNodes.toArray());
+        Edge[] reverseEdges = Edge.objToEdgeArr(reversePathEdges.toArray());
+        Node[] pathNodes = new Node[reverseNodes.length];
+        Edge[] pathEdges = new Edge[reverseEdges.length];
+        int j = 0;
+        for (int i = reverseNodes.length - 1; i >= 0; i--) {
+            pathNodes[j] = reverseNodes[i];
+            j++;
+        }
+        j = 0;
+        for (int i = reverseEdges.length - 1; i >= 0; i--) {
+            pathEdges[j] = reverseEdges[i];
+            j++;
+        }
+        Path p = new Path(sN, gN, pathNodes, pathEdges);
+        return p;
+    }
+
+    private Edge findEdge (Edge[] arr, Node next){
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].getNext().equals(next)) {
+                return arr[i];
+            }
+        }
         return null;
+    }
+
+    private int firstNode(Node[] arr){
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != null) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int findIndex(Node[] arr, Node node){
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].equals(node)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public Path[] getPrimePaths() {

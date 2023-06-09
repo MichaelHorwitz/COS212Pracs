@@ -31,4 +31,11 @@ public class Edge {
 
         return res;
     }
+    public static Edge[] objToEdgeArr(Object[] objArr){
+        Edge[] ret = new Edge[objArr.length];
+        for (int i = 0; i < objArr.length; i++) {
+            ret[i] = (Edge)objArr[i];
+        }
+        return ret;
+    }
 }

@@ -42,4 +42,11 @@ public class Node {
             } 
         return res;
     }
+    public static Node[] objToNodeArr(Object[] objArr){
+        Node[] ret = new Node[objArr.length];
+        for (int i = 0; i < objArr.length; i++) {
+            ret[i] = (Node)objArr[i];
+        }
+        return ret;
+    }
 }
